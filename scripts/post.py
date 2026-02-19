@@ -307,9 +307,8 @@ async def post(baseURL, endpoint, payload, authCookie):
         # Preserve JS bug (defaultKey instead of randomKey)
         decrypted_response = decryptResponse(response_json, defaultKey)
 
-        print("Decrypted Response:", decrypted_response)
-        return decrypted_response
+        return json.loads(decrypted_response)
 
     except Exception as e:
         print("Error in POST request:", e)
-        return None
+        raise
