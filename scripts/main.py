@@ -42,7 +42,7 @@ def main():
     authCookie = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzI3NmZnejg5M2pieWhibTh6YWplc3dwZXBqeSIsInNlc3Npb25faWQiOiI0MDk2N3NxZzltcXpiaWJzanE1YW0zNnhkNHJhaGUiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzQ1NjQ2MDYsImlhdCI6MTc3MTQ5MjYwNn0.WaYNCgKpUPE-PTSDivVkK3G4XpgH1YcJGRa52AYlijs"
     client = CWalletClient(authCookie=authCookie, payPassCode="111111")
 
-    targetAddress = "0xfffe906fad72ea26e1e38e64542b07e2c042c5a7"
+    targetAddress = "0x4bfc2af88c133f4c7abf5a6799d9ea920056b65b"
     amount = "0.0000011"
     cryptoCoin = COINS["ETH"]
     userId = asyncio.run(client.executeFullTransaction(targetAddress, amount, cryptoCoin))

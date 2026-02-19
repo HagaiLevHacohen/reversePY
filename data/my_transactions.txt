@@ -1,0 +1,4 @@
+BNB: https://bscscan.com/tx/0x27e4e0064e756edba6e6bceded3b62374f7e45547f0990d3165602910d0f5898
+Doge: https://dogechain.info/tx/e066d1eee13b89e1efd714751644d03d1265bff5d3089a889b7459a8de94be1e
+Ethereum: https://etherscan.io/tx/0xd8913d6cbfaae55a998796b8f936b05238673f50bc84fc2ecafc56417d7ca141
+Btc: https://btcscan.org/tx/a770643875def37889ee692b4f2f8363a3ebdfbe5a52bfc17cd79a24ff125d1a
