@@ -109,12 +109,12 @@ class CWalletClient:
         return response["data"]["id"]
     
 
-    async def createTransactionShareLink(self, id: str) -> str:
+    async def createTransactionShareLink(self, transactionId: str) -> str:
         endpoint = "user/transaction/share/create"
         payload = {
-            "record_id": id,
+            "record_id": transactionId,
             "tran_type": "Send",
-            "share_url": f"https://cwallet.com/txn/{id}"
+            "share_url": f"https://cwallet.com/txn/{transactionId}"
         }
         response = await post(
             self.baseURL,
@@ -128,12 +128,32 @@ class CWalletClient:
                 f"Failed to create transaction share link: code={response.get('code')}, msg={response.get('msg')}"
             )
         return response["data"] # returns cwallet transaction link: "https://s.cwallet.com/14oem2y"
+    
+
+    async def cancelTransaction(self,billId: str, type: int) -> None:
+        endpoint = "account/asset/withdraw/cancel"
+        payload = {
+            "bill_id": billId,
+            "type": type
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to cancel transaction: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        
 
 
-    async def getTransactionShareLinkUserId(self, id: str) -> str:
+    async def getTransactionShareLinkUserId(self, transactionId: str) -> str:
         endpoint = "user/transaction/share/get"
         payload = {
-            "record_id": id
+            "record_id": transactionId
         }
         response = await post(
             self.baseURL,
@@ -149,3 +169,22 @@ class CWalletClient:
         targetUserId = response["data"]["to"]
         userId = extractUserId(targetUserId)
         return userId
+    
+
+    async def getUserData(self, userId: str) -> str:
+        endpoint = "account/other/user"
+        payload = {
+            "id": userId
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to get user's data: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        return response["data"]
