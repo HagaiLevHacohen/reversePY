@@ -275,17 +275,12 @@ def generateRequestKey():
     return "".join(result)
 
 
-async def post(baseURL, endpoint, payload, test=False):
+async def post(baseURL, endpoint, payload, authCookie):
+    # Note: endpoint SHOULDN'T begin with a /
     # Generate random request key
     randomKey = generateRequestKey()
     encryptedKey = encryptWithDailyStaticKey(randomKey)
     encryptedBody = encryptRequestBody(json.dumps(payload), randomKey)
-
-    # Test override block (exact JS behavior)
-    if test:
-        randomKey = "pKK42dSdmM4qUmQa"
-        encryptedKey = "447fd769fdfd661d94bbf4a79d0bc3236de33415c50de104935ff673a1f063b5"
-        encryptedBody = "YQmrkNW93qU6ymN+5KKhGPtuduPAh8rGl3sv91fwJwITuntWII41Md4xtdU4eiieC0hZ2sjQ4T4ZO52P6SYiPG+s663Jt7GtXzTEWtN6VVoU+IkM3RNUC7r5W9VFJOmKqyfRs/UmXEj62WyNtXoWKu4mGgbkoPxbfw2XP1hnhjIhjZqKO76LFtr2AOKwQw+v7scGya+OGZfzOiwDqIrMHOOJUBPSIWJYOrRTHU0Uwj/GRHGR67oJ7zgN7r8q6RguDzzeJVMiDgZfxDg4ctpcEf9PI4iAg44OAw7uRsa7iS74kSq9xy8T5Yyx/oZLqAX7ft31ZRcIF5CcjvOGmfCXnPgzA+HhPin2IuvZilemjpgT+i6LMtfTrCtHO0zTT2LE2rewG3SdE6o6Pv2t9eWiag=="
 
     headers = {
         "Content-Type": "application/json",
@@ -295,7 +290,7 @@ async def post(baseURL, endpoint, payload, test=False):
         "X-Device-Type": "web",
         "X-Device-Telegram": "",
         "X-Device-Scene": "online",
-        "Cookie": "intercom-device-id-pkjm6nv7=3d29381f-e7ac-4459-9899-8a61f8768187; X-webviewId=84801afb787791d3d0e39bd27730f99a; Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzI3NmZnejg5M2pieWhibTh6YWplc3dwZXBqeSIsInNlc3Npb25faWQiOiI0MDk2YTYxd21raTk0aThwbXBybjNoNmtzOGgxN2MiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzQzOTY1MjIsImlhdCI6MTc3MTMyNDUyMn0.W-vC_J3vgCVyRJ5BFSxz62TJEf-20cHGZJidTH4Ttuw; intercom-session-pkjm6nv7=UklXMG9JZVFCcFJFUVB0dkhGRERPR3J5UEZQNXRQclJUeWlmT1A5Nk5LZ2tBUVVreis2K1hFcWJ0YXdsL1pFZjVicmo5Q09nNld1alBXQXhJZDNtdzhiYkNEbE1qNTJENCtldGZqTHN0eFQ1d0ZYTWx3cGxiajVxdUF5cEpkMTg5Zi9UQkhKekpKd3Yya0RmRTFqa0RwNU00OFF2aFRIa3JEa1dEdWYzZk9qK0Rqa1pjTXUrZUFjVXcrdmNlNFFRLS1JdnRGcmFpaUd3WDk5aEVCNjc2cUhBPT0=--06bf964a9d134bbe55182ba2f11227b239e16bd1"
+        "Cookie": f"Authorization={authCookie}"
     }
 
     try:
@@ -318,18 +313,3 @@ async def post(baseURL, endpoint, payload, test=False):
     except Exception as e:
         print("Error in POST request:", e)
         return None
-
-
-def main():
-    baseURL = "https://my.cwallet.com/cctip/v1/"
-    endpoint = "account/other/user"
-
-    payload = {
-        "id": "72349133"
-    }
-
-    asyncio.run(post(baseURL, endpoint, payload))
-
-
-if __name__ == "__main__":
-    main()
