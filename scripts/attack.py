@@ -4,6 +4,10 @@ from post import post
 from coin import CryptoCoin
 import hashlib
 from utils import extractUserId
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 class CWalletClient:
     def __init__(self, authCookie: str, payPassCode: str):
@@ -188,3 +192,62 @@ class CWalletClient:
                 f"Failed to get user's data: code={response.get('code')}, msg={response.get('msg')}"
             )
         return response["data"]
+
+
+
+    async def executeFullTransaction(self, targetAddress: str, amount: str, cryptoCoin: CryptoCoin) -> Dict[str, Union[str, int]]:
+        logger.debug("Starting executeFullTransaction")
+        logger.debug("Target address: %s | Amount: %s | Coin: %s", targetAddress, amount, cryptoCoin.symbol)
+        
+        try:
+            # Step 1
+            logger.debug("Step 1: Checking internal address")
+            isInner = await self.checkInnerAddress(targetAddress, cryptoCoin)
+
+            if not isInner:
+                logger.warning("Address is not internal. Aborting transaction.")
+                return None
+
+            logger.debug("Address confirmed as internal")
+
+            # Step 2
+            logger.debug("Step 2: Generating new bill ID")
+            billId = await self.generateNewBillId()
+            logger.debug("Generated billId: %s", billId)
+
+            # Step 3
+            logger.debug("Step 3: Making transaction")
+            txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
+            logger.debug("Transaction result: %s", txResult)
+
+            # Step 4
+            logger.debug("Step 4: Fetching transaction ID")
+            txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
+            logger.debug("Transaction ID: %s", txId)
+
+            # Step 5
+            logger.debug("Step 5: Creating transaction share link")
+            link = await self.createTransactionShareLink(txId)
+            logger.debug("Share link created: %s", link)
+
+            # Step 6
+            logger.debug("Step 6: Canceling transaction")
+            await self.cancelTransaction(txResult["bill_id"], txResult["type"])
+            logger.debug("Transaction canceled successfully")
+
+            # Step 7
+            logger.debug("Step 7: Getting user ID from share link")
+            userId = await self.getTransactionShareLinkUserId(txId)
+            logger.debug("Extracted userId: %s", userId)
+
+            # Step 8
+            logger.debug("Step 8: Fetching user data")
+            userData = await self.getUserData(userId)
+            logger.debug("User data retrieved successfully")
+
+            logger.info("executeFullTransaction completed successfully")
+            return userData
+
+        except Exception as e:
+            print(e)
+            return None

