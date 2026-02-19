@@ -1,12 +1,9 @@
-import base64
-import json
-import httpx
-import asyncio
 from typing import Dict, Union
 import time
 from post import post
 from coin import CryptoCoin
 import hashlib
+from utils import extractUserId
 
 class CWalletClient:
     def __init__(self, authCookie: str, payPassCode: str):
@@ -90,3 +87,65 @@ class CWalletClient:
                 f"Failed to submit transaction: code={response.get('code')}, msg={response.get('msg')}"
             )
         return response["data"] # returns {"bill_id":"202602190918562024413382663700480","type":3}
+    
+
+    async def getTransactionId(self, billId: str, type: int) -> str:
+        endpoint = "user/transaction/newrecord"
+        payload = {
+            "type": type,
+            "record_id": billId
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to get transaction id: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        return response["data"]["id"]
+    
+
+    async def createTransactionShareLink(self, id: str) -> str:
+        endpoint = "user/transaction/share/create"
+        payload = {
+            "record_id": id,
+            "tran_type": "Send",
+            "share_url": f"https://cwallet.com/txn/{id}"
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to create transaction share link: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        return response["data"] # returns cwallet transaction link: "https://s.cwallet.com/14oem2y"
+
+
+    async def getTransactionShareLinkUserId(self, id: str) -> str:
+        endpoint = "user/transaction/share/get"
+        payload = {
+            "record_id": id
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to get transaction share link user id: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        targetUserId = response["data"]["to"]
+        userId = extractUserId(targetUserId)
+        return userId
