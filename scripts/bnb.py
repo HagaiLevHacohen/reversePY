@@ -1,82 +1,96 @@
-import requests
+import asyncio
+import httpx
 import time
+from asyncio import Lock
 
 # ------------------------
 # CONFIGURATION
 # ------------------------
 
-API_KEY = "cqt_rQyFrrmc84hm6xyvkGcvvftBDyV8"  # replace with your actual API Key
+API_KEY = "cqt_rQyFrrmc84hm6xyvkGcvvftBDyV8"  # Replace with your actual GoldRush/Covalent API key
 TARGET_ADDRESS = "0x82916c48225948887faae3c4b6b819f6bf773ca2".lower()
 
 # Chains to fetch history for
-CHAINS = ["eth-mainnet", "bsc-mainnet"]  # e.g., Ethereum and BNB Smart Chain
+CHAINS = ["eth-mainnet", "bsc-mainnet"]
 
-# Unique senders set
+# File to write results
+OUTPUT_FILE = "unique_senders_covalent_async.txt"
+
+# ------------------------
+# GLOBALS
+# ------------------------
 unique_senders = set()
+write_lock = Lock()  # async lock to prevent simultaneous writes
 
 # ------------------------
-# FETCH & PAGINATION
+# ASYNC FETCH
 # ------------------------
 
-def fetch_transactions_for_chain(chain):
+async def fetch_chain_transactions(client: httpx.AsyncClient, chain: str):
     """
-    Fetch all transactions for the given chain,
-    then extract only incoming sender addresses.
+    Fetch all paginated transactions for a chain following the "links.next" URL.
+    Writes unique senders to file as they are found.
     """
-    page = 0
+    next_url = (
+        f"https://api.covalenthq.com/v1/{chain}/address/{TARGET_ADDRESS}/"
+        f"transactions_v3/page/0/"
+    )
+    headers = {"Authorization": f"Bearer {API_KEY}"}
+    page_counter = 0
 
-    while True:
-        url = (
-            f"https://api.covalenthq.com/v1/{chain}/address/{TARGET_ADDRESS}/"
-            f"transactions_v3/page/{page}/"
-        )
-        headers = {
-            "Authorization": f"Bearer {API_KEY}"
-        }
-
-        resp = requests.get(url, headers=headers)
-        if resp.status_code != 200:
-            print(f"[{chain}] HTTP error {resp.status_code}:", resp.text)
-            return
-
-        data = resp.json()
-
-        # "items" contains the list of transactions for this page
-        items = data.get("data", {}).get("items", [])
-        
-        print(f"[{chain}] page {page}, fetched {len(items)} transactions")
-
-        # no items => no more pages
-        if not items:
+    while next_url:
+        try:
+            resp = await client.get(next_url, headers=headers)
+        except Exception as e:
+            print(f"[{chain}] Request error:", e)
             break
 
-        # process items
+        if resp.status_code != 200:
+            print(f"[{chain}] HTTP error {resp.status_code}:", await resp.text())
+            break
+
+        data = resp.json()
+        items = data.get("data", {}).get("items", [])
+
+        print(f"[{chain}] page {page_counter}, fetched {len(items)} transactions")
+
         for tx in items:
             to_addr = tx.get("to_address") or ""
-            if to_addr and to_addr.lower() == TARGET_ADDRESS:
+            if to_addr.lower() == TARGET_ADDRESS:
                 from_addr = tx.get("from_address")
                 if from_addr:
-                    unique_senders.add(from_addr.lower())
+                    from_addr = from_addr.lower()
+                    if from_addr not in unique_senders:
+                        unique_senders.add(from_addr)
+                        # Write immediately
+                        async with write_lock:
+                            with open(OUTPUT_FILE, "a") as f:
+                                f.write(from_addr + "\n")
 
-        page += 1
+        links = data.get("data", {}).get("links", {})
+        next_url = links.get("next")
+        page_counter += 1
 
-        # small delay to respect rate limits
-        time.sleep(0.2)
+        await asyncio.sleep(0.1)  # avoid rate limits
 
 # ------------------------
 # MAIN LOOP
 # ------------------------
 
-for chain in CHAINS:
-    print(f"\nFetching transactions for {chain}...")
-    fetch_transactions_for_chain(chain)
+async def main():
+    # Clear output file at start
+    with open(OUTPUT_FILE, "w") as f:
+        f.write("")
 
-print("\nDone!")
-print("Unique senders count:", len(unique_senders))
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        tasks = [fetch_chain_transactions(client, chain) for chain in CHAINS]
+        await asyncio.gather(*tasks)
 
-# Save to file
-with open("unique_senders_covalent.txt", "w") as f:
-    for addr in sorted(unique_senders):
-        f.write(addr + "\n")
 
-print("Results written to unique_senders_covalent.txt")
+if __name__ == "__main__":
+    start_time = time.time()
+    asyncio.run(main())
+    print("\nDone!")
+    print("Unique senders count:", len(unique_senders))
+    print(f"Results written incrementally to {OUTPUT_FILE}")
+    print(f"Elapsed time: {time.time() - start_time:.2f} seconds")

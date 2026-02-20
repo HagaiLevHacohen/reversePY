@@ -116,3 +116,508 @@
 2026-02-20 14:07:28,900 | DEBUG | attack | Step 8: Fetching user data
 2026-02-20 14:07:30,408 | DEBUG | attack | User data retrieved successfully
 2026-02-20 14:07:30,408 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:06,243 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,243 | DEBUG | attack | Target address: 0x0033c2a32c87ffde7a7614d492621bf800db2fe4 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,243 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,300 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,300 | DEBUG | attack | Target address: 0x00343204277b640ccbc7d6ad0449ea6d760d0cfd | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,300 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,330 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,330 | DEBUG | attack | Target address: 0x0036747eec9451aa262cbb70ecd001ec5a29e778 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,330 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,359 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,359 | DEBUG | attack | Target address: 0x00379ce81c36dd158bf2627942cc2b5a7f686f75 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,359 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,388 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,388 | DEBUG | attack | Target address: 0x0038fe0efcc93c8173a6310780c12526e4155299 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,388 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,417 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,417 | DEBUG | attack | Target address: 0x003b3be1731651d366227516d970ea969d201c56 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,417 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,446 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,446 | DEBUG | attack | Target address: 0x003f6413faf9753b30cae0a7810f39c59b2dd6b7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,446 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,474 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,474 | DEBUG | attack | Target address: 0x0040260080d2bf1817ba2b68210ccfc3f1a121c7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,474 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:06,503 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:23:06,503 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:23:06,503 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:23:07,955 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:07,955 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:07,999 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:07,999 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:07,999 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:08,000 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:08,000 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:08,180 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:08,181 | WARNING | attack | Address is not internal. Aborting transaction.
+2026-02-20 14:23:08,194 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:23:09,428 | DEBUG | attack | Generated billId: 202602201223112024822135116496896
+2026-02-20 14:23:09,428 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:11,359 | DEBUG | attack | Transaction result: {'bill_id': '202602201223112024822135116496896', 'type': 3}
+2026-02-20 14:23:11,359 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:12,812 | DEBUG | attack | Transaction ID: 202602201223122024822141451649024
+2026-02-20 14:23:12,812 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:14,296 | DEBUG | attack | Share link created: https://s.cwallet.com/1afclz6
+2026-02-20 14:23:14,296 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:15,780 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:15,781 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:15,812 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:17,276 | DEBUG | attack | Extracted userId: 53161469
+2026-02-20 14:23:17,276 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:17,307 | DEBUG | attack | Generated billId: 202602201223182024822167639130112
+2026-02-20 14:23:17,307 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:18,790 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:18,790 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:19,002 | DEBUG | attack | Transaction result: {'bill_id': '202602201223182024822167639130112', 'type': 3}
+2026-02-20 14:23:19,002 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:20,467 | DEBUG | attack | Transaction ID: 202602201223202024822174087532544
+2026-02-20 14:23:20,467 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:21,944 | DEBUG | attack | Share link created: https://s.cwallet.com/xh61gc
+2026-02-20 14:23:21,944 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:23,407 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:23,407 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:23,438 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:24,908 | DEBUG | attack | Generated billId: 202602201223262024822199599722496
+2026-02-20 14:23:24,908 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:24,945 | DEBUG | attack | Extracted userId: 68470712
+2026-02-20 14:23:24,945 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:26,401 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:26,401 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:26,416 | DEBUG | attack | Transaction result: {'bill_id': '202602201223262024822199599722496', 'type': 3}
+2026-02-20 14:23:26,416 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:27,870 | DEBUG | attack | Transaction ID: 202602201223272024822206081679360
+2026-02-20 14:23:27,870 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:29,333 | DEBUG | attack | Share link created: https://s.cwallet.com/18sw22u
+2026-02-20 14:23:29,333 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:30,791 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:30,791 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:30,826 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:32,284 | DEBUG | attack | Extracted userId: 51706912
+2026-02-20 14:23:32,285 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:32,319 | DEBUG | attack | Generated billId: 202602201223332024822230591438848
+2026-02-20 14:23:32,319 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:33,784 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:33,784 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:34,050 | DEBUG | attack | Transaction result: {'bill_id': '202602201223332024822230591438848', 'type': 3}
+2026-02-20 14:23:34,050 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:35,515 | DEBUG | attack | Transaction ID: 202602201223352024822237417328640
+2026-02-20 14:23:35,516 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:36,972 | DEBUG | attack | Share link created: https://s.cwallet.com/10j0n43
+2026-02-20 14:23:36,972 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:38,447 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:38,447 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:38,479 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:39,937 | DEBUG | attack | Generated billId: 202602201223412024822262854025216
+2026-02-20 14:23:39,938 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:39,975 | DEBUG | attack | Extracted userId: 49669521
+2026-02-20 14:23:39,975 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:41,398 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:41,398 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:41,671 | DEBUG | attack | Transaction result: {'bill_id': '202602201223412024822262854025216', 'type': 3}
+2026-02-20 14:23:41,671 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:42,922 | DEBUG | attack | Transaction ID: 202602201223422024822269046571008
+2026-02-20 14:23:42,922 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:44,385 | DEBUG | attack | Share link created: https://s.cwallet.com/1b4jwup
+2026-02-20 14:23:44,385 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:46,227 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:46,227 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:46,262 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:47,726 | DEBUG | attack | Extracted userId: 46484928
+2026-02-20 14:23:47,727 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:47,763 | DEBUG | attack | Generated billId: 202602201223492024822295317938176
+2026-02-20 14:23:47,763 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:49,233 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:49,237 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:49,244 | DEBUG | attack | Transaction result: {'bill_id': '202602201223492024822295317938176', 'type': 3}
+2026-02-20 14:23:49,244 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:50,769 | DEBUG | attack | Transaction ID: 202602201223502024822301585981440
+2026-02-20 14:23:50,770 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:23:52,299 | DEBUG | attack | Share link created: https://s.cwallet.com/12vsdpe
+2026-02-20 14:23:52,299 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:23:53,793 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:23:53,793 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:23:53,827 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:23:55,344 | DEBUG | attack | Extracted userId: 84194
+2026-02-20 14:23:55,344 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:23:55,376 | DEBUG | attack | Generated billId: 202602201223562024822327131734016
+2026-02-20 14:23:55,377 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:23:56,854 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:23:56,854 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:23:57,092 | DEBUG | attack | Transaction result: {'bill_id': '202602201223562024822327131734016', 'type': 3}
+2026-02-20 14:23:57,093 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:23:58,551 | DEBUG | attack | Transaction ID: 202602201223582024822333840183296
+2026-02-20 14:23:58,552 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:24:00,021 | DEBUG | attack | Share link created: https://s.cwallet.com/15gq6gd
+2026-02-20 14:24:00,021 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:24:01,543 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:24:01,544 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:24:01,576 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:24:03,037 | DEBUG | attack | Extracted userId: 35512770
+2026-02-20 14:24:03,038 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:24:03,077 | DEBUG | attack | Generated billId: 202602201224042024822359515955200
+2026-02-20 14:24:03,078 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:24:04,521 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:24:04,521 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:24:04,848 | DEBUG | attack | Transaction result: {'bill_id': '202602201224042024822359515955200', 'type': 3}
+2026-02-20 14:24:04,848 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:24:06,368 | DEBUG | attack | Transaction ID: 202602201224062024822366211817472
+2026-02-20 14:24:06,369 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:24:07,848 | DEBUG | attack | Share link created: https://s.cwallet.com/zu8nhs
+2026-02-20 14:24:07,850 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:24:09,327 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:24:09,327 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:24:10,792 | DEBUG | attack | Extracted userId: 59918744
+2026-02-20 14:24:10,793 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:24:12,250 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:24:12,250 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:26:21,680 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,680 | DEBUG | attack | Target address: 0x0033c2a32c87ffde7a7614d492621bf800db2fe4 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,680 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,737 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,738 | DEBUG | attack | Target address: 0x00343204277b640ccbc7d6ad0449ea6d760d0cfd | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,738 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,768 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,769 | DEBUG | attack | Target address: 0x0036747eec9451aa262cbb70ecd001ec5a29e778 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,769 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,799 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,799 | DEBUG | attack | Target address: 0x00379ce81c36dd158bf2627942cc2b5a7f686f75 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,799 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,829 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,830 | DEBUG | attack | Target address: 0x0038fe0efcc93c8173a6310780c12526e4155299 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,830 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,860 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,861 | DEBUG | attack | Target address: 0x003b3be1731651d366227516d970ea969d201c56 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,861 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,890 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,891 | DEBUG | attack | Target address: 0x003f6413faf9753b30cae0a7810f39c59b2dd6b7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,891 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,920 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,921 | DEBUG | attack | Target address: 0x0040260080d2bf1817ba2b68210ccfc3f1a121c7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,923 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:21,952 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:26:21,953 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:26:21,953 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:26:23,415 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,415 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:23,452 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,452 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,452 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,454 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,620 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,626 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:23,628 | WARNING | attack | Address is not internal. Aborting transaction.
+2026-02-20 14:26:23,645 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:26:24,955 | DEBUG | attack | Generated billId: 202602201226262024822954595414016
+2026-02-20 14:26:24,956 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:26:26,659 | DEBUG | attack | Transaction result: {'bill_id': '202602201226262024822954595414016', 'type': 3}
+2026-02-20 14:26:26,660 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:26:28,209 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:26:28,210 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:26:28,241 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:29,703 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:29,746 | DEBUG | attack | Transaction ID: 202602201226272024822960838295552
+2026-02-20 14:26:29,746 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:26:31,165 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:31,211 | DEBUG | attack | Share link created: https://s.cwallet.com/y6rhce
+2026-02-20 14:26:31,212 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:26:32,641 | DEBUG | attack | Generated billId: 202602201226342024822986694426624
+2026-02-20 14:26:32,642 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:26:32,688 | DEBUG | attack | Extracted userId: 49669521
+2026-02-20 14:26:32,689 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:26:34,118 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:26:34,118 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:26:34,347 | DEBUG | attack | Transaction result: {'bill_id': '202602201226342024822986694426624', 'type': 3}
+2026-02-20 14:26:34,347 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:26:35,947 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:26:35,948 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:26:35,979 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:37,454 | DEBUG | attack | Transaction ID: 202602201226352024822993365123072
+2026-02-20 14:26:37,454 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:26:37,487 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:38,913 | DEBUG | attack | Share link created: https://s.cwallet.com/1akwjme
+2026-02-20 14:26:38,913 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:26:38,944 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:40,390 | DEBUG | attack | Generated billId: 202602201226412024823019275776000
+2026-02-20 14:26:40,390 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:26:40,426 | DEBUG | attack | Extracted userId: 46484928
+2026-02-20 14:26:40,426 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:26:41,857 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:26:41,857 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:26:42,086 | DEBUG | attack | Transaction result: {'bill_id': '202602201226412024823019275776000', 'type': 3}
+2026-02-20 14:26:42,087 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:26:43,707 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:26:43,708 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:26:43,740 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:26:45,230 | DEBUG | attack | Transaction ID: 202602201226432024823025489297408
+2026-02-20 14:26:45,230 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:26:46,689 | DEBUG | attack | Share link created: https://s.cwallet.com/y84z7i
+2026-02-20 14:26:46,690 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:26:48,146 | DEBUG | attack | Extracted userId: 35512770
+2026-02-20 14:26:48,146 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:26:49,725 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:26:49,725 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:35:50,180 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:35:50,180 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:35:50,180 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:35:51,684 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:35:51,685 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:35:51,685 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:36:21,862 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:36:21,862 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:36:21,862 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:36:23,444 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:36:23,446 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:36:24,895 | DEBUG | attack | Generated billId: 202602201236262024825470158598144
+2026-02-20 14:36:24,895 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:36:26,604 | DEBUG | attack | Transaction result: {'bill_id': '202602201236262024825470158598144', 'type': 3}
+2026-02-20 14:36:26,604 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:36:28,106 | DEBUG | attack | Transaction ID: 202602201236272024825476325986304
+2026-02-20 14:36:28,106 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:36:29,546 | DEBUG | attack | Share link created: https://s.cwallet.com/1bw0czg
+2026-02-20 14:36:29,546 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:36:31,011 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:36:31,011 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:36:32,459 | DEBUG | attack | Extracted userId: 59918744
+2026-02-20 14:36:32,460 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:36:33,923 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:36:33,924 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:08,199 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,200 | DEBUG | attack | Target address: 0x0032327f0aac7888291dd93acf324cd29815bb5e | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,200 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,254 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,256 | DEBUG | attack | Target address: 0x0033c2a32c87ffde7a7614d492621bf800db2fe4 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,256 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,292 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,292 | DEBUG | attack | Target address: 0x00343204277b640ccbc7d6ad0449ea6d760d0cfd | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,292 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,323 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,323 | DEBUG | attack | Target address: 0x0036747eec9451aa262cbb70ecd001ec5a29e778 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,323 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,353 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,353 | DEBUG | attack | Target address: 0x00379ce81c36dd158bf2627942cc2b5a7f686f75 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,353 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,383 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,383 | DEBUG | attack | Target address: 0x0038fe0efcc93c8173a6310780c12526e4155299 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,383 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,413 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,413 | DEBUG | attack | Target address: 0x003b3be1731651d366227516d970ea969d201c56 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,413 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,442 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,442 | DEBUG | attack | Target address: 0x003f6413faf9753b30cae0a7810f39c59b2dd6b7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,442 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,477 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,477 | DEBUG | attack | Target address: 0x0040260080d2bf1817ba2b68210ccfc3f1a121c7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,477 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:08,521 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:40:08,522 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:40:08,522 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:40:10,005 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,005 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:10,036 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,037 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,040 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,040 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,205 | WARNING | attack | Address is not internal. Aborting transaction.
+2026-02-20 14:40:10,206 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,210 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,212 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:10,251 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:40:11,629 | DEBUG | attack | Generated billId: 202602201240122024826419908411392
+2026-02-20 14:40:11,630 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:13,351 | DEBUG | attack | Transaction result: {'bill_id': '202602201240122024826419908411392', 'type': 3}
+2026-02-20 14:40:13,351 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:14,880 | DEBUG | attack | Transaction ID: 202602201240142024826426604277760
+2026-02-20 14:40:14,882 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:16,347 | DEBUG | attack | Share link created: https://s.cwallet.com/18cb8pc
+2026-02-20 14:40:16,347 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:18,086 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:18,086 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:18,121 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:19,588 | DEBUG | attack | Extracted userId: 51706912
+2026-02-20 14:40:19,589 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:19,626 | DEBUG | attack | Generated billId: 202602201240202024826453693526016
+2026-02-20 14:40:19,627 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:21,045 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:40:21,045 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:21,306 | DEBUG | attack | Transaction result: {'bill_id': '202602201240202024826453693526016', 'type': 3}
+2026-02-20 14:40:21,306 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:22,757 | DEBUG | attack | Transaction ID: 202602201240222024826459898658816
+2026-02-20 14:40:22,758 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:24,208 | DEBUG | attack | Share link created: https://s.cwallet.com/14l3ofy
+2026-02-20 14:40:24,208 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:25,893 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:25,893 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:25,985 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:27,453 | DEBUG | attack | Extracted userId: 68470712
+2026-02-20 14:40:27,453 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:27,505 | DEBUG | attack | Generated billId: 202602201240282024826486597844992
+2026-02-20 14:40:27,505 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:29,007 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:40:29,007 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:29,292 | DEBUG | attack | Transaction result: {'bill_id': '202602201240282024826486597844992', 'type': 3}
+2026-02-20 14:40:29,293 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:30,750 | DEBUG | attack | Transaction ID: 202602201240302024826493373403136
+2026-02-20 14:40:30,751 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:32,206 | DEBUG | attack | Share link created: https://s.cwallet.com/1c931kw
+2026-02-20 14:40:32,206 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:34,027 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:34,028 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:34,060 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:35,517 | DEBUG | attack | Generated billId: 202602201240362024826520378769408
+2026-02-20 14:40:35,518 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:35,554 | DEBUG | attack | Extracted userId: 27955630
+2026-02-20 14:40:35,554 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:36,991 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:40:36,991 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:37,262 | DEBUG | attack | Transaction result: {'bill_id': '202602201240362024826520378769408', 'type': 3}
+2026-02-20 14:40:37,262 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:38,737 | DEBUG | attack | Transaction ID: 202602201240382024826526818779136
+2026-02-20 14:40:38,737 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:40,199 | DEBUG | attack | Share link created: https://s.cwallet.com/193uiry
+2026-02-20 14:40:40,199 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:41,677 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:41,678 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:41,709 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:43,178 | DEBUG | attack | Extracted userId: 53161469
+2026-02-20 14:40:43,178 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:43,212 | DEBUG | attack | Generated billId: 202602201240442024826552456806400
+2026-02-20 14:40:43,212 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:44,645 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:40:44,645 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:44,915 | DEBUG | attack | Transaction result: {'bill_id': '202602201240442024826552456806400', 'type': 3}
+2026-02-20 14:40:44,916 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:46,390 | DEBUG | attack | Transaction ID: 202602201240452024826559156862976
+2026-02-20 14:40:46,390 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:47,876 | DEBUG | attack | Share link created: https://s.cwallet.com/1cpypfr
+2026-02-20 14:40:47,876 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:49,478 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:49,478 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:49,512 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:50,971 | DEBUG | attack | Generated billId: 202602201240522024826585151406080
+2026-02-20 14:40:50,971 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:40:51,003 | DEBUG | attack | Extracted userId: 84194
+2026-02-20 14:40:51,004 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:52,383 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:40:52,384 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:40:52,639 | DEBUG | attack | Transaction result: {'bill_id': '202602201240522024826585151406080', 'type': 3}
+2026-02-20 14:40:52,639 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:40:54,100 | DEBUG | attack | Transaction ID: 202602201240532024826591612391424
+2026-02-20 14:40:54,101 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:40:55,591 | DEBUG | attack | Share link created: https://s.cwallet.com/16n8hjq
+2026-02-20 14:40:55,591 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:40:57,415 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:40:57,415 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:40:57,446 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:40:58,746 | DEBUG | attack | Extracted userId: 46484928
+2026-02-20 14:40:58,746 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:40:58,781 | DEBUG | attack | Generated billId: 202602201240592024826618022166528
+2026-02-20 14:40:58,781 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:41:00,190 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:41:00,190 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:41:00,273 | DEBUG | attack | Transaction result: {'bill_id': '202602201240592024826618022166528', 'type': 3}
+2026-02-20 14:41:00,273 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:41:01,784 | DEBUG | attack | Transaction ID: 202602201241012024826624176967680
+2026-02-20 14:41:01,785 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:41:03,284 | DEBUG | attack | Share link created: https://s.cwallet.com/1ay90bs
+2026-02-20 14:41:03,284 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:41:04,792 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:41:04,792 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:41:04,823 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:41:06,275 | DEBUG | attack | Extracted userId: 59918744
+2026-02-20 14:41:06,276 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:41:06,311 | DEBUG | attack | Generated billId: 202602201241072024826649311674368
+2026-02-20 14:41:06,311 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:41:07,746 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:41:07,746 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:41:07,786 | DEBUG | attack | Transaction result: {'bill_id': '202602201241072024826649311674368', 'type': 3}
+2026-02-20 14:41:07,786 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:41:09,245 | DEBUG | attack | Transaction ID: 202602201241082024826655667798016
+2026-02-20 14:41:09,245 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:41:10,688 | DEBUG | attack | Share link created: https://s.cwallet.com/16z80y1
+2026-02-20 14:41:10,690 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:41:12,211 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:41:12,211 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:41:12,242 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:41:13,780 | DEBUG | attack | Generated billId: 202602201241142024826680760565760
+2026-02-20 14:41:13,780 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:41:13,815 | DEBUG | attack | Extracted userId: 35512770
+2026-02-20 14:41:13,815 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:41:15,246 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:41:15,246 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:41:15,509 | DEBUG | attack | Transaction result: {'bill_id': '202602201241142024826680760565760', 'type': 3}
+2026-02-20 14:41:15,509 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:41:17,002 | DEBUG | attack | Transaction ID: 202602201241162024826687246712832
+2026-02-20 14:41:17,002 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:41:18,460 | DEBUG | attack | Share link created: https://s.cwallet.com/1bdmg5b
+2026-02-20 14:41:18,460 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:41:19,905 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:41:19,905 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:41:21,369 | DEBUG | attack | Extracted userId: 49669521
+2026-02-20 14:41:21,369 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:41:22,827 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:41:22,828 | INFO | attack | executeFullTransaction completed successfully
+2026-02-20 14:44:02,170 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,170 | DEBUG | attack | Target address: 0x0032327f0aac7888291dd93acf324cd29815bb5e | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,170 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,242 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,242 | DEBUG | attack | Target address: 0x0033c2a32c87ffde7a7614d492621bf800db2fe4 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,242 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,274 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,274 | DEBUG | attack | Target address: 0x00343204277b640ccbc7d6ad0449ea6d760d0cfd | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,275 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,309 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,310 | DEBUG | attack | Target address: 0x0036747eec9451aa262cbb70ecd001ec5a29e778 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,311 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,343 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,344 | DEBUG | attack | Target address: 0x00379ce81c36dd158bf2627942cc2b5a7f686f75 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,344 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,376 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,376 | DEBUG | attack | Target address: 0x0038fe0efcc93c8173a6310780c12526e4155299 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,376 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,407 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,407 | DEBUG | attack | Target address: 0x003b3be1731651d366227516d970ea969d201c56 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,407 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,438 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,439 | DEBUG | attack | Target address: 0x003f6413faf9753b30cae0a7810f39c59b2dd6b7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,439 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,469 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,469 | DEBUG | attack | Target address: 0x0040260080d2bf1817ba2b68210ccfc3f1a121c7 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,470 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:02,501 | DEBUG | attack | Starting executeFullTransaction
+2026-02-20 14:44:02,501 | DEBUG | attack | Target address: 0x0040378fae407da0cceb145fce114386298c0af5 | Amount: 0.00000001 | Coin: ETH
+2026-02-20 14:44:02,501 | DEBUG | attack | Step 1: Checking internal address
+2026-02-20 14:44:03,848 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:03,848 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:03,882 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:03,882 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:03,919 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:03,919 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:03,950 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:03,950 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:04,097 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:04,099 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:04,199 | WARNING | attack | Address is not internal. Aborting transaction.
+2026-02-20 14:44:04,200 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:04,201 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:04,232 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:04,233 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:04,267 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:04,267 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:04,301 | DEBUG | attack | Address confirmed as internal
+2026-02-20 14:44:04,301 | DEBUG | attack | Step 2: Generating new bill ID
+2026-02-20 14:44:05,349 | DEBUG | attack | Generated billId: 202602201244062024827400381497344
+2026-02-20 14:44:05,349 | DEBUG | attack | Step 3: Making transaction
+2026-02-20 14:44:06,933 | DEBUG | attack | Transaction result: {'bill_id': '202602201244062024827400381497344', 'type': 3}
+2026-02-20 14:44:06,934 | DEBUG | attack | Step 4: Fetching transaction ID
+2026-02-20 14:44:08,418 | DEBUG | attack | Transaction ID: 202602201244072024827406464991232
+2026-02-20 14:44:08,419 | DEBUG | attack | Step 5: Creating transaction share link
+2026-02-20 14:44:09,878 | DEBUG | attack | Share link created: https://s.cwallet.com/14xiwii
+2026-02-20 14:44:09,881 | DEBUG | attack | Step 6: Canceling transaction
+2026-02-20 14:44:11,377 | DEBUG | attack | Transaction canceled successfully
+2026-02-20 14:44:11,378 | DEBUG | attack | Step 7: Getting user ID from share link
+2026-02-20 14:44:12,866 | DEBUG | attack | Extracted userId: 51706912
+2026-02-20 14:44:12,867 | DEBUG | attack | Step 8: Fetching user data
+2026-02-20 14:44:14,327 | DEBUG | attack | User data retrieved successfully
+2026-02-20 14:44:14,328 | INFO | attack | executeFullTransaction completed successfully

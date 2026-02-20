@@ -1,3 +1,0 @@
-address,result
-0x0032327f0aac7888291dd93acf324cd29815bb5e,"{""id"": 27955630, ""user_id"": ""12288zao3pgz1z7fbt8xjpgxw8jd51y"", ""nickname"": ""rhe***@gmail.com"", ""head_url"": ""https://resource.cwallet.com/head/a1.png"", ""email"": ""rhe***@gmail.com""}"
-
