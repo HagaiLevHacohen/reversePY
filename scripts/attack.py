@@ -1,4 +1,5 @@
 from typing import Dict, Union
+import asyncio
 import time
 from post import post
 from coin import CryptoCoin
@@ -14,6 +15,7 @@ class CWalletClient:
         self.authCookie = authCookie
         self.payPass = hashlib.md5(payPassCode.encode('utf-8')).hexdigest()
         self.baseURL = "https://my.cwallet.com/cctip/v1/"
+        self._withdraw_lock = asyncio.Lock()
 
     async def checkInnerAddress(self, address: str, cryptoCoin: CryptoCoin) -> bool:
         endpoint = "account/asset/withdraw/check"
@@ -210,30 +212,30 @@ class CWalletClient:
 
             logger.debug("Address confirmed as internal")
 
-            # Step 2
-            logger.debug("Step 2: Generating new bill ID")
-            billId = await self.generateNewBillId()
-            logger.debug("Generated billId: %s", billId)
+            # Step 2 - 6 (critical section)
+            async with self._withdraw_lock:
+                logger.debug("Step 2: Generating new bill ID")
+                billId = await self.generateNewBillId()
+                logger.debug("Generated billId: %s", billId)
 
-            # Step 3
-            logger.debug("Step 3: Making transaction")
-            txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
-            logger.debug("Transaction result: %s", txResult)
+                logger.debug("Step 3: Making transaction")
+                txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
+                logger.debug("Transaction result: %s", txResult)
 
-            # Step 4
-            logger.debug("Step 4: Fetching transaction ID")
-            txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
-            logger.debug("Transaction ID: %s", txId)
+                # Step 4
+                logger.debug("Step 4: Fetching transaction ID")
+                txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
+                logger.debug("Transaction ID: %s", txId)
 
-            # Step 5
-            logger.debug("Step 5: Creating transaction share link")
-            link = await self.createTransactionShareLink(txId)
-            logger.debug("Share link created: %s", link)
+                # Step 5
+                logger.debug("Step 5: Creating transaction share link")
+                link = await self.createTransactionShareLink(txId)
+                logger.debug("Share link created: %s", link)
 
-            # Step 6
-            logger.debug("Step 6: Canceling transaction")
-            await self.cancelTransaction(txResult["bill_id"], txResult["type"])
-            logger.debug("Transaction canceled successfully")
+                # Step 6
+                logger.debug("Step 6: Canceling transaction")
+                await self.cancelTransaction(txResult["bill_id"], txResult["type"])
+                logger.debug("Transaction canceled successfully")
 
             # Step 7
             logger.debug("Step 7: Getting user ID from share link")

