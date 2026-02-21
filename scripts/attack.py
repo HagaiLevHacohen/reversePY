@@ -257,15 +257,13 @@ class CWalletClient:
 
     async def filterInnerAddresses(self, addresses: list[str], cryptoCoin: CryptoCoin) -> list[str]:
         semaphore = asyncio.Semaphore(5)  # limit concurrent requests
-        counter = 0
         async def limited_check(address: str) -> bool:
             async with semaphore:
-                counter += 1
                 try:
-                    print("Proccessing address number:" + str(counter))
+                    print(f"Proccessing address {address}")
                     return await self.checkInnerAddress(address, cryptoCoin)
                 except Exception as e:
-                    print("Error " + str(counter) +" :" + e)
+                    print(f"Error {address} : {e}")
                     return False
         tasks = [limited_check(addr) for addr in addresses]
         results = await asyncio.gather(*tasks)

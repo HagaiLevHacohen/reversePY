@@ -129,4 +129,4 @@ async def filterBtcAddresses(addressesFileName: str) -> None:
         for addr in sorted(inner_addresses):
             f.write(f"{addr}\n")
 
-asyncio.run(btcExplore("btc_new_addresses.txt"))
+asyncio.run(filterBtcAddresses("btc_new_addresses.txt"))

@@ -275,6 +275,19 @@ def generateRequestKey():
     return "".join(result)
 
 
+async def post_with_retry(client, url, headers, body, retries=3):
+    for attempt in range(retries):
+        try:
+            response = await client.post(url, headers=headers, content=body)
+            response.raise_for_status()
+            return response
+        except (httpx.ConnectError, httpx.ConnectTimeout, httpx.RequestError) as e:
+            if attempt < retries - 1:
+                await asyncio.sleep(1.5 * (attempt + 1))
+            else:
+                raise
+
+
 async def post(baseURL, endpoint, payload, authCookie):
     # Note: endpoint SHOULDN'T begin with a /
     # Generate random request key
@@ -294,14 +307,9 @@ async def post(baseURL, endpoint, payload, authCookie):
     }
 
     try:
-        timeout = httpx.Timeout(connect=15.0, read=30.0, write=10.0)
+        timeout = httpx.Timeout(connect=15.0, read=30.0, write=10.0, pool=5.0)
         async with httpx.AsyncClient(timeout=timeout) as client:
-            response = await client.post(
-                f"{baseURL}{endpoint}",
-                headers=headers,
-                content=encryptedBody
-            )
-        response.raise_for_status()
+            response = await post_with_retry(client, f"{baseURL}{endpoint}", headers, encryptedBody)
 
         response_json = response.json()
 
