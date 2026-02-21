@@ -294,7 +294,8 @@ async def post(baseURL, endpoint, payload, authCookie):
     }
 
     try:
-        async with httpx.AsyncClient() as client:
+        timeout = httpx.Timeout(connect=15.0, read=30.0, write=10.0)
+        async with httpx.AsyncClient(timeout=timeout) as client:
             response = await client.post(
                 f"{baseURL}{endpoint}",
                 headers=headers,
