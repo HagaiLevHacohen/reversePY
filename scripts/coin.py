@@ -22,4 +22,10 @@ COINS = {
         contract="1",
         memo=""
     ),
+    "BTC": CryptoCoin( 
+        symbol="BTC",
+        chainId="BTC",
+        contract="BTC",
+        memo=""
+    ),
 }

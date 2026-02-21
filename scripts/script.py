@@ -1,11 +1,12 @@
 import asyncio
-from pathlib import Path
 import aiofiles
 import aiocsv
 import json
 import csv
+import asyncio
 from coin import CryptoCoin
 from attack import CWalletClient
+from pathlib import Path
 
 lock = asyncio.Lock()
 
