@@ -2,3 +2,8 @@ BNB: https://bscscan.com/tx/0x27e4e0064e756edba6e6bceded3b62374f7e45547f0990d316
 Doge: https://dogechain.info/tx/e066d1eee13b89e1efd714751644d03d1265bff5d3089a889b7459a8de94be1e
 Ethereum: https://etherscan.io/tx/0xd8913d6cbfaae55a998796b8f936b05238673f50bc84fc2ecafc56417d7ca141
 Btc: https://btcscan.org/tx/a770643875def37889ee692b4f2f8363a3ebdfbe5a52bfc17cd79a24ff125d1a
+Optimism: https://optimistic.etherscan.io/txs?a=0xf71c98b3025baa6d1c15148429a9f2f1ce952e8c&f=3
+Base: https://basescan.org/address/0x2a8435c5D3607F9b8DA7E778f5bcd62cEb57b337
+Arbitum: https://arbiscan.io/address/0x2a8435c5D3607F9b8DA7E778f5bcd62cEb57b337
+Zksync: https://explorer.zksync.io/address/0xcEfe13bD6F7F97cc672cC4Cddb1A14c477DdcDBC (Not many Incoming tx)
+Polygon: https://polygonscan.com/tx/0x72d325e288f23cc40968c0850467335800c3130c0ee8433fcdc39efa4faff55d
