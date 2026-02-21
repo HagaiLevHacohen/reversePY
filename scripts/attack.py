@@ -266,6 +266,7 @@ class CWalletClient:
                     return await self.checkInnerAddress(address, cryptoCoin)
                 except Exception as e:
                     print("Error " + str(counter) +" :" + e)
+                    return False
         tasks = [limited_check(addr) for addr in addresses]
         results = await asyncio.gather(*tasks)
 
