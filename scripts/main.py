@@ -39,9 +39,15 @@ def setup_logging(enabled: bool = True):
 
 
 async def main():
-    # Creating attack client
-    authCookie = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzI3NmZnejg5M2pieWhibTh6YWplc3dwZXBqeSIsInNlc3Npb25faWQiOiI0MDk2aW1jNHRhc3h5dGZjN2V5d2V4Mzk0b2VkbWMiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzQ1OTQxNDAsImlhdCI6MTc3MTUyMjE0MH0.xZRE4ud_0LqA0Bq3ulp8TzPsa1APDVIIksHTnlQNmJk"
-    client = CWalletClient(authCookie=authCookie, payPassCode="111111")
+    # Cookies
+    clients = []
+    cookies = [
+
+    ]
+    # Creating attack clients
+    for cookie in cookies:
+        clients.append(CWalletClient(authCookie=cookie, payPassCode="111111"))
+
 
     # Getting Addresses
 
