@@ -216,6 +216,7 @@ class CWalletClient:
 
                 # Step 2 - 6 (critical section)
                 async with self._withdraw_lock:
+                    await asyncio.sleep(5)
                     logger.debug("Step 2: Generating new bill ID")
                     billId = await self.generateNewBillId()
                     logger.debug("Generated billId: %s", billId)

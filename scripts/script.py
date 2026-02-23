@@ -4,6 +4,7 @@ import aiocsv
 import json
 import csv
 import asyncio
+from datetime import datetime
 from coin import CryptoCoin
 from attack import CWalletClient
 from pathlib import Path
@@ -67,11 +68,16 @@ async def queue_worker(name: int, queue: asyncio.Queue, clients: list[CWalletCli
 
         try:
             data = await client.executeFullTransaction(address, amount, coin)
+
+            # Get timestamp
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
             print(f"Worker {name} processed address: {address}, result: {data}")
             async with lock:
                 await writer.writerow({
                     "address": address,
-                    "result": json.dumps(data)
+                    "result": json.dumps(data),
+                    "timestamp": timestamp
                 })
         except Exception as e:
             print(f"Worker {name} error: {e}")
@@ -110,7 +116,7 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
     async with aiofiles.open(results_file, mode="a", newline="") as afp:
         writer = aiocsv.AsyncDictWriter(
             afp,
-            fieldnames=["address", "result"]
+            fieldnames = ["address", "result", "timestamp"]
         )
 
         # Write header only if file didn't exist
@@ -122,7 +128,7 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
         for addr in remaining_addresses:
             queue.put_nowait(addr)
 
-        NUM_WORKERS = 60  # tune this
+        NUM_WORKERS =len(clients) * 5  # tune this
 
         workers = [
             asyncio.create_task(
