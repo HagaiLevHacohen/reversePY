@@ -198,7 +198,7 @@ class CWalletClient:
 
 
 
-    async def executeFullTransaction(self, targetAddress: str, amount: str, cryptoCoin: CryptoCoin) -> Dict[str, Union[str, int]]:
+    async def executeFullTransaction(self, targetAddress: str, amount: str, cryptoCoin: CryptoCoin) -> str:
         async with self._execution_semaphore:
             logger.debug("Starting executeFullTransaction")
             logger.debug("Target address: %s | Amount: %s | Coin: %s", targetAddress, amount, cryptoCoin.symbol)
@@ -245,14 +245,8 @@ class CWalletClient:
                 userId = await self.getTransactionShareLinkUserId(txId)
                 logger.debug("Extracted userId: %s", userId)
 
-                # Step 8
-                logger.debug("Step 8: Fetching user data")
-                userData = await self.getUserData(userId)
-                logger.debug("User data retrieved successfully")
-
-                logger.info("executeFullTransaction completed successfully")
-                return userData
-
+                return userId
+            
             except Exception as e:
                 print(e)
                 return None

@@ -67,16 +67,16 @@ async def queue_worker(name: int, queue: asyncio.Queue, clients: list[CWalletCli
         client = clients[name % len(clients)]
 
         try:
-            data = await client.executeFullTransaction(address, amount, coin)
+            userId = await client.executeFullTransaction(address, amount, coin)
 
             # Get timestamp
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            print(f"Worker {name} processed address: {address}, result: {data}")
+            print(f"Worker {name} processed address: {address}, result: {userId}")
             async with lock:
                 await writer.writerow({
                     "address": address,
-                    "result": json.dumps(data),
+                    "userId": userId,
                     "timestamp": timestamp
                 })
         except Exception as e:
@@ -116,7 +116,7 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
     async with aiofiles.open(results_file, mode="a", newline="") as afp:
         writer = aiocsv.AsyncDictWriter(
             afp,
-            fieldnames = ["address", "result", "timestamp"]
+            fieldnames = ["address", "userId", "timestamp"]
         )
 
         # Write header only if file didn't exist
