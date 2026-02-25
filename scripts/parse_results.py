@@ -12,7 +12,7 @@ def read_results_csv(file_name: str):
 
         for row in reader:
             address = row["address"]
-            raw_result = row["result"]
+            raw_result = row["userId"]
             timestamp = row.get("timestamp")  # safely read timestamp
 
             # Handle null values
