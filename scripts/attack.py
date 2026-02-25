@@ -179,6 +179,7 @@ class CWalletClient:
     
 
     async def getUserData(self, userId: str) -> str:
+        await asyncio.sleep(30)
         endpoint = "account/other/user"
         payload = {
             "id": userId

