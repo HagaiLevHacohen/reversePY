@@ -70,7 +70,7 @@ async def userDataExtraction():
     # Cookies
     clients = []
     cookies = [
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzM3MjgzOHRkcm5xdGpwZjRwa3hwcWg5NjhqM2E3aCIsInNlc3Npb25faWQiOiI0MDk2aWNmNWF1N29yaW56ZmZ4YXU1Y3k1b3pwMW8iLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzUwOTE4NjEsImlhdCI6MTc3MjAxOTg2MX0.DOPdygehYqSnR11JtFwBnnkuURdmVS4RooTzoeW9YLs", # 10
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjk2MzJ6M3g4YmVra3hibnd4eDl1d3o1azdlYXkzdyIsInNlc3Npb25faWQiOiI0MDk2cHA2bzExcm50dGd0eHhmZW96c3M1cXJnbnkiLCJwbGF0Zm9ybSI6ImVtYWlsIiwicm9sZXMiOiIiLCJwcm9wcyI6eyJib3RJZCI6IiIsImhlYWRVcmwiOiIiLCJuaWNrbmFtZSI6IiJ9LCJleHAiOjE4MzUxODc2NTQsImlhdCI6MTc3MjExNTY1NH0.xVDIwRrOAhpH7bPmbnXvSBMpEB1-foyJI8T35ZT_ADg", # 14
     ]
     # Creating attack clients
     for cookie in cookies:
