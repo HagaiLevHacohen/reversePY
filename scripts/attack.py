@@ -154,6 +154,25 @@ class CWalletClient:
             raise ValueError(
                 f"Failed to cancel transaction: code={response.get('code')}, msg={response.get('msg')}"
             )
+
+
+    async def confirmTransaction(self,billId: str, type: int) -> None:
+        endpoint = "account/asset/withdraw/delay/confirm"
+        payload = {
+            "bill_id": billId,
+            "type": type
+        }
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to cancel transaction: code={response.get('code')}, msg={response.get('msg')}"
+            )
         
 
 
@@ -253,6 +272,61 @@ class CWalletClient:
                 return None
         
 
+    async def executeFullTransactionWithConfirmation(self, targetAddress: str, amount: str, cryptoCoin: CryptoCoin) -> str:
+        async with self._execution_semaphore:
+            logger.debug("Starting executeFullTransaction")
+            logger.debug("Target address: %s | Amount: %s | Coin: %s", targetAddress, amount, cryptoCoin.symbol)
+            
+            try:
+                # Step 1
+                logger.debug("Step 1: Checking internal address")
+                isInner = await self.checkInnerAddress(targetAddress, cryptoCoin)
+
+                if not isInner:
+                    logger.warning("Address is not internal. Aborting transaction.")
+                    return None
+
+                logger.debug("Address confirmed as internal")
+
+                # Step 2 - 6 (critical section)
+                async with self._withdraw_lock:
+                    await asyncio.sleep(5)
+                    logger.debug("Step 2: Generating new bill ID")
+                    billId = await self.generateNewBillId()
+                    logger.debug("Generated billId: %s", billId)
+
+                    logger.debug("Step 3: Making transaction")
+                    txResult = await self.makeTransaction(targetAddress, billId, amount, cryptoCoin)
+                    logger.debug("Transaction result: %s", txResult)
+
+                    # Step 4
+                    logger.debug("Step 4: Fetching transaction ID")
+                    txId = await self.getTransactionId(txResult["bill_id"], txResult["type"])
+                    logger.debug("Transaction ID: %s", txId)
+
+                    # Step 5
+                    logger.debug("Step 5: Creating transaction share link")
+                    link = await self.createTransactionShareLink(txId)
+                    logger.debug("Share link created: %s", link)
+
+                    # Step 6
+                    logger.debug("Step 6: Confirming transaction")
+                    await self.confirmTransaction(txResult["bill_id"], txResult["type"])
+                    logger.debug("Transaction confirmed successfully")
+
+                # Step 7
+                logger.debug("Step 7: Getting user ID from share link")
+                userId = await self.getTransactionShareLinkUserId(txId)
+                logger.debug("Extracted userId: %s", userId)
+
+                return userId
+            
+            except Exception as e:
+                print(e)
+                return None
+
+
+
     async def filterInnerAddresses(self, addresses: list[str], cryptoCoin: CryptoCoin) -> list[str]:
         semaphore = asyncio.Semaphore(5)  # limit concurrent requests
         counter = 0
@@ -271,3 +345,20 @@ class CWalletClient:
 
         # keep only addresses that returned True
         return [addr for addr, is_inner in zip(addresses, results) if is_inner]
+
+
+
+    async def getUserDataByPayload(self, payload) -> str:
+        endpoint = "account/other/user"
+        response = await post(
+            self.baseURL,
+            endpoint,
+            payload,
+            self.authCookie
+        )
+        if response["code"] != 10000:
+            # Raise an exception if the API call failed
+            raise ValueError(
+                f"Failed to get user's data: code={response.get('code')}, msg={response.get('msg')}"
+            )
+        return response["data"]
