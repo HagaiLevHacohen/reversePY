@@ -182,7 +182,7 @@ async def executeUserIdToPII(userIdsFileName: str, resultsFileName: str, clients
         for userId_row in remaining_userId_rows:
             queue.put_nowait(userId_row)
 
-        NUM_WORKERS =len(clients) * 1  # tune this
+        NUM_WORKERS =len(clients) * 5  # tune this
 
         workers = [
             asyncio.create_task(
