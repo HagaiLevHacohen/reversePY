@@ -8,6 +8,19 @@ import httpx
 import asyncio
 
 # =============================
+# PROXY CONFIG
+# =============================
+
+PROXY_HOST = "2.59.20.98:33333"
+PROXY_USERNAME = "johnsmith943"
+PROXY_PASSWORD = "E3FD596E42DC9DFDAF4AAF9563089020"
+
+proxy = httpx.Proxy(
+    f"http://{PROXY_HOST}",
+    auth=(PROXY_USERNAME, PROXY_PASSWORD),
+)
+
+# =============================
 # CONFIG
 # =============================
 
@@ -308,7 +321,7 @@ async def post(baseURL, endpoint, payload, authCookie):
 
     try:
         timeout = httpx.Timeout(connect=15.0, read=30.0, write=10.0, pool=5.0)
-        async with httpx.AsyncClient(timeout=timeout) as client:
+        async with httpx.AsyncClient(timeout=timeout, proxy=proxy) as client:
             response = await post_with_retry(client, f"{baseURL}{endpoint}", headers, encryptedBody)
 
         response_json = response.json()

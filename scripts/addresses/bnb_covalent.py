@@ -3,6 +3,19 @@ import httpx
 import time
 from asyncio import Lock
 
+# =============================
+# PROXY CONFIG
+# =============================
+
+PROXY_HOST = "2.59.20.98:33333"
+PROXY_USERNAME = "johnsmith943"
+PROXY_PASSWORD = "E3FD596E42DC9DFDAF4AAF9563089020"
+
+proxy = httpx.Proxy(
+    f"http://{PROXY_HOST}",
+    auth=(PROXY_USERNAME, PROXY_PASSWORD),
+)
+
 # ------------------------
 # CONFIGURATION
 # ------------------------
@@ -82,7 +95,7 @@ async def main():
     with open(OUTPUT_FILE, "w") as f:
         f.write("")
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
+    async with httpx.AsyncClient(timeout=60.0, proxy=proxy) as client:
         tasks = [fetch_chain_transactions(client, chain) for chain in CHAINS]
         await asyncio.gather(*tasks)
 
