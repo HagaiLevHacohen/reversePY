@@ -1,7 +1,6 @@
-from coin import CryptoCoin
-from attack import CWalletClient
-from script import read_addresses, getDataFilePath
-from coin import COINS
+from scripts.attack import CWalletClient
+from scripts.parse import read_addresses, getDataFilePath
+from scripts.coin import COINS
 import asyncio
 import httpx
 
@@ -78,6 +77,7 @@ async def get_all_inputs_of_outgoing(target_address: str) -> set[str]:
 
 
 async def btcExplore(addressesFileName: str) -> None:
+    # Part 1 - used to find candidate btc addresses
     addresses_file = getDataFilePath(addressesFileName)
     addresses = read_addresses(addresses_file)
     inputs_of_outgoing_addresses = set()
@@ -108,6 +108,7 @@ async def btcExplore(addressesFileName: str) -> None:
 
 
 async def filterBtcAddresses(addressesFileName: str) -> None:
+    # Part 1 - used to filter only internal btc addresses
     addresses_file = getDataFilePath(addressesFileName)
     addresses = read_addresses(addresses_file)
 
