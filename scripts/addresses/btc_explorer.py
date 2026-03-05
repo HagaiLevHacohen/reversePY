@@ -1,22 +1,10 @@
 from scripts.attack import CWalletClient
 from scripts.parse import read_addresses, getDataFilePath
 from scripts.coin import COINS
+from scripts.proxy import get_random_proxy
 import asyncio
 import httpx
 
-
-# =============================
-# PROXY CONFIG
-# =============================
-
-PROXY_HOST = "2.59.20.98:33333"
-PROXY_USERNAME = "johnsmith943"
-PROXY_PASSWORD = "E3FD596E42DC9DFDAF4AAF9563089020"
-
-proxy = httpx.Proxy(
-    f"http://{PROXY_HOST}",
-    auth=(PROXY_USERNAME, PROXY_PASSWORD),
-)
 
 
 
@@ -49,6 +37,7 @@ async def get_all_inputs_of_outgoing(target_address: str) -> set[str]:
     next_url = base_url
 
     timeout = httpx.Timeout(connect=10.0, read=60.0, write=30.0, pool=10.0)
+    proxy = get_random_proxy()
     async with httpx.AsyncClient(timeout=timeout, proxy=proxy) as client:
         previous_last_txid = ""
         while next_url:

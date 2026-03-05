@@ -1,24 +1,13 @@
 import base64
 import json
 import math
+import httpx
+import asyncio
 from datetime import datetime, timezone
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
-import httpx
-import asyncio
+from proxy import get_random_proxy
 
-# =============================
-# PROXY CONFIG
-# =============================
-
-PROXY_HOST = "2.59.20.98:33333"
-PROXY_USERNAME = "johnsmith943"
-PROXY_PASSWORD = "E3FD596E42DC9DFDAF4AAF9563089020"
-
-proxy = httpx.Proxy(
-    f"http://{PROXY_HOST}",
-    auth=(PROXY_USERNAME, PROXY_PASSWORD),
-)
 
 # =============================
 # CONFIG
@@ -321,6 +310,7 @@ async def post(baseURL, endpoint, payload, authCookie):
 
     try:
         timeout = httpx.Timeout(connect=15.0, read=30.0, write=10.0, pool=5.0)
+        proxy = get_random_proxy()
         async with httpx.AsyncClient(timeout=timeout, proxy=proxy) as client:
             response = await post_with_retry(client, f"{baseURL}{endpoint}", headers, encryptedBody)
 

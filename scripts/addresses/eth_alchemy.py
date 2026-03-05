@@ -1,18 +1,7 @@
 import asyncio
 import httpx
+from scripts.proxy import get_random_proxy
 
-# =============================
-# PROXY CONFIG
-# =============================
-
-PROXY_HOST = "2.59.20.98:33333"
-PROXY_USERNAME = "johnsmith943"
-PROXY_PASSWORD = "E3FD596E42DC9DFDAF4AAF9563089020"
-
-proxy = httpx.Proxy(
-    f"http://{PROXY_HOST}",
-    auth=(PROXY_USERNAME, PROXY_PASSWORD),
-)
 
 API_KEY = "ee111vAO19WhZBGBR-3dV"
 ADDRESS = "0x935d2e470284fb536227a76a723f96a94efae6a9".lower()
@@ -23,6 +12,7 @@ async def main():
     page_key = None
     prev_page_key = None
 
+    proxy = get_random_proxy()
     async with httpx.AsyncClient(timeout=60.0, proxy=proxy) as client:
         while True:
             payload = {
