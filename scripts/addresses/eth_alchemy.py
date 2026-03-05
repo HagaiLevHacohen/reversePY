@@ -1,7 +1,10 @@
 import asyncio
 import httpx
-from scripts.proxy import get_random_proxy
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
+from scripts.proxy import get_random_proxy
 
 API_KEY = "ee111vAO19WhZBGBR-3dV"
 ADDRESS = "0x935d2e470284fb536227a76a723f96a94efae6a9".lower()
@@ -11,9 +14,7 @@ async def main():
     unique_senders = set()
     page_key = None
     prev_page_key = None
-
-    proxy = get_random_proxy()
-    async with httpx.AsyncClient(timeout=60.0, proxy=proxy) as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         while True:
             payload = {
                 "jsonrpc": "2.0",

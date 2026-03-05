@@ -1,11 +1,13 @@
+import asyncio
+import httpx
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 from scripts.attack import CWalletClient
 from scripts.parse import read_addresses, getDataFilePath
 from scripts.coin import COINS
 from scripts.proxy import get_random_proxy
-import asyncio
-import httpx
-
-
 
 
 async def fetch_with_retry(client, url, retries=3):
@@ -37,8 +39,7 @@ async def get_all_inputs_of_outgoing(target_address: str) -> set[str]:
     next_url = base_url
 
     timeout = httpx.Timeout(connect=10.0, read=60.0, write=30.0, pool=10.0)
-    proxy = get_random_proxy()
-    async with httpx.AsyncClient(timeout=timeout, proxy=proxy) as client:
+    async with httpx.AsyncClient(timeout=timeout) as client:
         previous_last_txid = ""
         while next_url:
             resp = await fetch_with_retry(client, next_url)

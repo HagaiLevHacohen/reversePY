@@ -1,7 +1,11 @@
 import asyncio
 import httpx
 import time
+import sys
+import os
 from asyncio import Lock
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 from scripts.proxy import get_random_proxy
 
 # ------------------------
@@ -47,7 +51,7 @@ async def fetch_chain_transactions(client: httpx.AsyncClient, chain: str):
             break
 
         if resp.status_code != 200:
-            print(f"[{chain}] HTTP error {resp.status_code}:", await resp.text())
+            print(f"[{chain}] HTTP error {resp.status_code}: {resp.text}")
             break
 
         data = resp.json()
@@ -83,8 +87,7 @@ async def main():
     with open(OUTPUT_FILE, "w") as f:
         f.write("")
     
-    proxy = get_random_proxy()
-    async with httpx.AsyncClient(timeout=60.0, proxy=proxy) as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         tasks = [fetch_chain_transactions(client, chain) for chain in CHAINS]
         await asyncio.gather(*tasks)
 
