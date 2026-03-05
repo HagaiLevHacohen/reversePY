@@ -180,7 +180,7 @@ async def main():
     if choice == "0":
         await userIdExtraction()
     elif choice == "1":
-        await executeUserIdToPII()
+        await userDataExtraction()
     else:
         print("Invalid option")
 
