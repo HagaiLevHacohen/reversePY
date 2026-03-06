@@ -28,4 +28,10 @@ COINS = {
         contract="BTC",
         memo=""
     ),
+    "BEP20": CryptoCoin( # BEP20
+        symbol="ETH",
+        chainId="BSC",
+        contract="0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+        memo=""
+    ),
 }
