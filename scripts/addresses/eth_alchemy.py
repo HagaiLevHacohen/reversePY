@@ -7,8 +7,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"
 from scripts.proxy import get_random_proxy
 
 API_KEY = "ee111vAO19WhZBGBR-3dV"
-ADDRESS = "0x935d2e470284fb536227a76a723f96a94efae6a9".lower()
-BASE_URL = f"https://eth-mainnet.g.alchemy.com/v2/{API_KEY}"
+ADDRESS = "0xe3b205DA6D47989538f03553BC394d941677ffd3".lower()
+BASE_URL = f"https://base-mainnet.g.alchemy.com/v2/{API_KEY}"
 
 async def main():
     unique_senders = set()
@@ -30,7 +30,6 @@ async def main():
                         "maxCount": "0x3e8",  # 1000 per page
                         "category": [
                             "external",
-                            "internal",
                             "erc20",
                             "erc721",
                             "erc1155"
@@ -81,7 +80,7 @@ async def main():
 
     print("Unique senders count:", len(unique_senders))
 
-    with open("unique_senders_alchemy.txt", "w") as f:
+    with open("unique_senders_alchemy_base.txt", "w") as f:
         for addr in sorted(unique_senders):
             f.write(addr + "\n")
 
