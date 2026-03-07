@@ -261,5 +261,5 @@ async def main():
 
 
 if __name__ == "__main__":
-    setup_logging(enabled=True)
+    setup_logging(enabled=False)
     asyncio.run(main())
