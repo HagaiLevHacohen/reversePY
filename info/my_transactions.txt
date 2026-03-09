@@ -7,3 +7,6 @@ Base: https://basescan.org/address/0x2a8435c5D3607F9b8DA7E778f5bcd62cEb57b337
 Arbitum: https://arbiscan.io/address/0x2a8435c5D3607F9b8DA7E778f5bcd62cEb57b337
 Zksync: https://explorer.zksync.io/address/0xcEfe13bD6F7F97cc672cC4Cddb1A14c477DdcDBC (Not many Incoming tx)
 Polygon: https://polygonscan.com/tx/0x72d325e288f23cc40968c0850467335800c3130c0ee8433fcdc39efa4faff55d
+Solana: https://solscan.io/tx/4Bvi9DZ12PFgC6qnLk5Zy5rTbRZsLWUrMW3UrnYBu1NymzAe4mdonnB4cd8Eakd1kHtKeknqb1JEiamvz4qAtjrz
+opBNB: https://opbnbscan.com/tx/0x4b901770f1a63953f06ac625d558070972293a1cd9e6affd80136f864ecf0931
+
