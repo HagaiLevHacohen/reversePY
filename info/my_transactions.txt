@@ -11,5 +11,11 @@ Solana: https://solscan.io/tx/4Bvi9DZ12PFgC6qnLk5Zy5rTbRZsLWUrMW3UrnYBu1NymzAe4m
 opBNB: https://opbnbscan.com/tx/0x4b901770f1a63953f06ac625d558070972293a1cd9e6affd80136f864ecf0931
 tron: https://tronscan.org/#/transaction/5733ab31992f551ddbd7643fab859bd06f39f51045720dccf1d56089645a1a6f
 celo: https://celoscan.io/tx/0x0883241ca2290600e93eb47f834433574516985af1e4e55d419b28bf02ddf67c (only 17k incoming)
+ton: https://tonscan.org/address/EQDBqRLTLDTU7e2rbdwQJ3w76PWu2Kyt0SjiTB4g-DaCV3QM (filter -> dev mode)
+Avax: https://snowtrace.io/tx/0x6b1a23ca662ad5226adf8731874fb70b0aa969663b8d1f55f4dd02ed93eb66b4 (only 20k, not all incoming cwallet)
+bitcoin cash: https://www.blockchain.com/explorer/transactions/bch/4b06ae4d92a9c5672131e1865e60ea7ffdef7019aed491963a80e7bb1cdd2fd8
+litecoin: https://blockchair.com/litecoin/transaction/f32cf3b8b0fbbfb624d96dc304e99f5753e0dc8edda752e4454500f2a59463ef
+dot: https://assethub-polkadot.subscan.io/extrinsic/13232740-2 (257 txs... not worth it)
+
 
 
