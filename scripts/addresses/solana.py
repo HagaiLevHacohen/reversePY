@@ -48,16 +48,29 @@ async def main():
                 break
 
             for tx in txs:
-                sender = tx.get("feePayer")
-                if sender:
-                    unique_senders.add(sender)
+                # feePayer
+                fee_payer = tx.get("feePayer")
+                if fee_payer:
+                    unique_senders.add(fee_payer)
+
+                # SOL transfers
+                for native in tx.get("nativeTransfers", []):
+                    sender = native.get("from")
+                    if sender:
+                        unique_senders.add(sender)
+
+                # SPL token transfers
+                for token in tx.get("tokenTransfers", []):
+                    sender = token.get("from")
+                    if sender:
+                        unique_senders.add(sender)
+
                 total += 1
 
             print(f"Transactions scanned: {total} | Unique senders: {len(unique_senders)}")
 
             before = txs[-1]["signature"]
 
-            # small delay to avoid hitting rate limit
             await asyncio.sleep(0.2)
 
     print("\nDone scanning!")
