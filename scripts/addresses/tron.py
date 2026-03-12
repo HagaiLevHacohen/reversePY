@@ -48,7 +48,7 @@ async def main():
             for tx in transfers:
                 sender = tx.get("from")
                 if sender:
-                    unique_senders.add(sender.lower())
+                    unique_senders.add(sender)
 
             total += len(transfers)
 
