@@ -4,7 +4,7 @@ import httpx
 # ===========================
 # CONFIG
 # ===========================
-API_URL = "https://opbnb-mainnet.nodereal.io/v1/e5718d72aa2d45a6bfc07a5cf26d5e4f"
+API_URL = "https://opbnb-mainnet.nodereal.io/v1/e5718d72aa2d45a6bfc07a5cf26d5e4f" # Using nodereal
 ADDRESS = "0x109babe5fc1467774f03b53e3349f6359b236088".lower()
 TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 BLOCK_BATCH = 20000      # Number of blocks per RPC call

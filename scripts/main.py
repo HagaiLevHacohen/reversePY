@@ -264,7 +264,7 @@ async def userIdExtraction(addressesFileName, cryptoCoin):
 
     # Getting Addresses
     resultsFileName = "results_eth.txt"
-    amount = "0.00000001"
+    amount = "0.000001"
 
     await executeAttack(
         addressesFileName=addressesFileName,
