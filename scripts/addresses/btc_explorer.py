@@ -14,128 +14,211 @@ from parse import read_addresses, getDataFilePath
 from coin import COINS
 
 # ------------------------------
-# Helper: robust HTTP fetch with retries and 429 handling
+# Proxy configuration
 # ------------------------------
-async def fetch_with_retry(client, url, retries=5):
+
+PROXIES = [
+    None,  # your own IP
+    ("2.59.20.98:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.35:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.107:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.72:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.124:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.128:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.153:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+    ("2.59.20.162:33333", "johnsmith943", "E3FD596E42DC9DFDAF4AAF9563089020"),
+]
+
+# ------------------------------
+# Proxy rotator
+# ------------------------------
+
+class ProxyRotator:
+    def __init__(self, clients):
+        self.clients = clients
+        self.index = 0
+
+    def next(self):
+        client = self.clients[self.index]
+        self.index = (self.index + 1) % len(self.clients)
+        return client
+
+# ------------------------------
+# Create http clients
+# ------------------------------
+
+def create_clients(timeout):
+    clients = []
+
+    for proxy in PROXIES:
+        if proxy is None:
+            clients.append(httpx.AsyncClient(timeout=timeout))
+        else:
+            host, user, password = proxy
+            proxy_url = f"http://{user}:{password}@{host}"
+
+            clients.append(
+                httpx.AsyncClient(
+                    timeout=timeout,
+                    proxy=proxy_url
+                )
+            )
+
+    return clients
+
+# ------------------------------
+# Robust HTTP fetch
+# ------------------------------
+
+async def fetch_with_retry(rotator, url, retries=5):
     for attempt in range(retries):
+        client = rotator.next()
+
         try:
             resp = await client.get(url)
+
             if resp.status_code == 429:
                 wait_time = 2 ** attempt
                 print(f"[429] Rate limited. Waiting {wait_time}s before retrying {url}")
                 await asyncio.sleep(wait_time)
                 continue
+
             resp.raise_for_status()
+
+            # small delay between requests
+            await asyncio.sleep(0.34)
+
             return resp
+
         except (httpx.RequestError, httpx.TimeoutException) as e:
             if attempt < retries - 1:
                 wait_time = 1.5 * (attempt + 1)
-                print(f"[Retry] {e}, waiting {wait_time}s before retrying {url}")
+                print(f"[Retry] {e}, waiting {wait_time}s")
                 await asyncio.sleep(wait_time)
             else:
                 raise
-    raise Exception(f"Failed to fetch {url} after {retries} retries")
+
+    raise Exception(f"Failed to fetch {url}")
 
 # ------------------------------
-# Get all input addresses of outgoing transactions
+# Get input addresses
 # ------------------------------
-async def get_all_inputs_of_outgoing(target_address: str, client: httpx.AsyncClient) -> set[str]:
+
+async def get_all_inputs_of_outgoing(target_address, rotator):
     target_address = target_address.strip()
     collected_inputs = set()
-    base_url = f"https://blockstream.info/api/address/{target_address}/txs"
-    next_url = base_url
+
+    BASE = "https://mempool.space/api"
+    next_url = f"{BASE}/address/{target_address}/txs"
+
     previous_last_txid = ""
 
     while next_url:
-        resp = await fetch_with_retry(client, next_url)
-        txs = resp.json()
+        try:
+            resp = await fetch_with_retry(rotator, next_url)
+            txs = resp.json()
+
+        except Exception as e:
+            print(f"[Partial] Error fetching {target_address}: {e}")
+            print(f"[Partial] Returning {len(collected_inputs)} collected addresses")
+            return collected_inputs
+
         if not txs:
             break
 
-        for tx in txs:
-            vin = tx.get("vin", [])
-            is_outgoing = any(inp.get("prevout", {}).get("scriptpubkey_address") == target_address for inp in vin)
-            if not is_outgoing:
-                continue
-            for inp in vin:
-                addr = inp.get("prevout", {}).get("scriptpubkey_address")
-                if addr:
-                    collected_inputs.add(addr)
+        try:
+            for tx in txs:
+                vin = tx.get("vin", [])
 
-        # Pagination
+                is_outgoing = any(
+                    inp.get("prevout", {}).get("scriptpubkey_address") == target_address
+                    for inp in vin
+                )
+
+                if not is_outgoing:
+                    continue
+
+                for inp in vin:
+                    addr = inp.get("prevout", {}).get("scriptpubkey_address")
+                    if addr:
+                        collected_inputs.add(addr)
+
+        except Exception as e:
+            print(f"[Partial] Parsing error for {target_address}: {e}")
+            print(f"[Partial] Returning {len(collected_inputs)} collected addresses")
+            return collected_inputs
+
         last_txid = txs[-1].get("txid")
+
         if not last_txid or last_txid == previous_last_txid:
             break
+
         previous_last_txid = last_txid
-        next_url = f"https://blockstream.info/api/address/{target_address}/txs/chain/{last_txid}"
-        await asyncio.sleep(0.2)  # prevent rate limiting
+        next_url = f"{BASE}/address/{target_address}/txs/chain/{last_txid}"
 
     return collected_inputs
 
 # ------------------------------
-# Discover candidate BTC addresses
+# Discover BTC addresses
 # ------------------------------
-async def btcExplore(inputFileName: str, outputFileName: str, processedFileName: str | None = None):
-    addresses = set(read_addresses(getDataFilePath(inputFileName)))
 
+async def btcExplore(inputFileName, outputFileName, processedFileName=None):
+    addresses = set(read_addresses(getDataFilePath(inputFileName)))
     processed = set()
+
     if processedFileName:
         try:
             processed = set(read_addresses(getDataFilePath(processedFileName)))
-            print(f"Loaded {len(processed)} already processed addresses")
+            print(f"Loaded {len(processed)} processed addresses")
+
         except FileNotFoundError:
-            print("Processed file not found, starting fresh")
+            print("Processed file not found")
 
-    # remove processed addresses
     addresses = list(addresses - processed)
-
-    print(f"{len(addresses)} addresses left to explore")
-
-    collected = set()
-    semaphore = asyncio.Semaphore(3)
-
-    total = len(addresses)
-    done_count = 0
+    print(f"{len(addresses)} addresses to explore")
 
     timeout = httpx.Timeout(connect=10, read=60, write=30, pool=10)
-    async with httpx.AsyncClient(timeout=timeout) as client:
+    clients = create_clients(timeout)
+    rotator = ProxyRotator(clients)
 
-        async def limited(addr):
-            nonlocal done_count
-            async with semaphore:
-                print(f"[{done_count}/{total}] Fetching {addr}")
-                result = await get_all_inputs_of_outgoing(addr, client)
-                done_count += 1
-                print(f"[{done_count}/{total}] Done {addr}")
-                return addr, result
+    collected = set()
+    total = len(addresses)
 
-        tasks = [limited(addr) for addr in addresses]
-        results = await asyncio.gather(*tasks)
+    for i, addr in enumerate(addresses):
+        print(f"[{i+1}/{total}] Fetching {addr}")
 
-        for addr, res in results:
-            collected.update(res)
+        try:
+            result = await get_all_inputs_of_outgoing(addr, rotator)
+            collected.update(result)
             processed.add(addr)
+
+        except Exception as e:
+            print(f"Error with {addr}: {e}")
 
     new_addresses = collected - set(addresses)
 
     if new_addresses:
-        print(f"Writing {len(new_addresses)} new addresses to {outputFileName}")
+        print(f"Writing {len(new_addresses)} new addresses")
+
         with open(getDataFilePath(outputFileName), "a", encoding="utf-8") as f:
             for addr in sorted(new_addresses):
                 f.write(addr + "\n")
 
-    # update processed file
     if processedFileName:
         with open(getDataFilePath(processedFileName), "w", encoding="utf-8") as f:
             for addr in sorted(processed):
                 f.write(addr + "\n")
 
-    print("Exploration finished.")
+    for c in clients:
+        await c.aclose()
+
+    print("Exploration finished")
 
 
 # ------------------------------
 # Filter internal BTC addresses
 # ------------------------------
+
 async def filterBtcAddresses(inputFileName: str, outputFileName: str):
     addresses = read_addresses(getDataFilePath(inputFileName))
     print(f"Filtering {len(addresses)} addresses for internal BTC")
@@ -162,15 +245,20 @@ async def filterBtcAddresses(inputFileName: str, outputFileName: str):
 
     # Split addresses evenly between clients
     chunks = [[] for _ in clients]
+
     for i, addr in enumerate(addresses):
         chunks[i % len(clients)].append(addr)
 
     async def worker(client, addr_chunk, worker_id):
         print(f"Worker {worker_id}: processing {len(addr_chunk)} addresses")
+
         if not addr_chunk:
             return []
+
         result = await client.filterInnerAddresses(addr_chunk, cryptoCoin)
+
         print(f"Worker {worker_id}: finished")
+
         return result or []
 
     tasks = [
@@ -181,6 +269,7 @@ async def filterBtcAddresses(inputFileName: str, outputFileName: str):
     results = await asyncio.gather(*tasks)
 
     inner_addresses = set()
+
     for res in results:
         inner_addresses.update(res)
 
@@ -189,45 +278,47 @@ async def filterBtcAddresses(inputFileName: str, outputFileName: str):
         return
 
     print(f"Writing {len(inner_addresses)} internal addresses to {outputFileName}")
+
     with open(getDataFilePath(outputFileName), "w", encoding="utf-8") as f:
         for addr in sorted(inner_addresses):
             f.write(addr + "\n")
 
 
 # ------------------------------
-# Merge new addresses into existing file
+# Merge addresses
 # ------------------------------
-def mergeAddresses(inputFileName: str, outputFileName: str):
+
+def mergeAddresses(inputFileName, outputFileName):
     input_addresses = set(read_addresses(getDataFilePath(inputFileName)))
     output_addresses = set(read_addresses(getDataFilePath(outputFileName)))
 
     new_addresses = input_addresses - output_addresses
+
     if not new_addresses:
-        print("No new addresses to merge.")
+        print("No new addresses")
         return
 
-    print(f"Adding {len(new_addresses)} new addresses to {outputFileName}")
+    print(f"Adding {len(new_addresses)} addresses")
+
     with open(getDataFilePath(outputFileName), "a", encoding="utf-8") as f:
         for addr in sorted(new_addresses):
             f.write(addr + "\n")
 
-
-
 # ------------------------------
-# CLI menu
+# CLI
 # ------------------------------
+
 print("Choose option:")
 print("0 - Discover candidate BTC addresses")
 print("1 - Filter internal BTC addresses")
-print("2 - Merge new addresses into existing file")  # new option
+print("2 - Merge new addresses")
 
 choice = input("Enter choice: ")
 
-
 if choice == "0":
-    inputFileName = input("Input file with initial BTC addresses: ")
-    outputFileName = input("Output file for candidate addresses: ")
-    processedFileName = input("File with already processed addresses (or leave empty): ")
+    inputFileName = input("Input file: ")
+    outputFileName = input("Output file: ")
+    processedFileName = input("Processed file (optional): ")
 
     if processedFileName.strip() == "":
         processedFileName = None
@@ -237,11 +328,13 @@ if choice == "0":
 elif choice == "1":
     inputFileName = input("Input file with candidate BTC addresses: ")
     outputFileName = input("Output file for validated internal addresses: ")
+
     asyncio.run(filterBtcAddresses(inputFileName, outputFileName))
 
 elif choice == "2":
-    inputFileName = input("Input file with new addresses: ")
-    outputFileName = input("Output file to merge into: ")
+    inputFileName = input("Input file: ")
+    outputFileName = input("Output file: ")
+
     mergeAddresses(inputFileName, outputFileName)
 
 else:
